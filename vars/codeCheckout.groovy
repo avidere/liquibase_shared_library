@@ -6,7 +6,7 @@ def call(){
                 branches: [[name: '*/main']],
                 userRemoteConfigs: [[credentialsId: 'gitCredentialsId', url: gitUrl]]
             ])
-            currentBuild.displayName = "${projectKey} + env.BUILD_NUMBER"
+            currentBuild.displayName = ${projectKey} + env.BUILD_NUMBER
             echo "Checkout successful: ${gitUrl}"
         } catch (Exception e) {
             echo "Checkout failed: ${e.getMessage()}"
