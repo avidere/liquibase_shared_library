@@ -4,7 +4,7 @@ def call(){
             checkout([
                 $class: 'GitSCM',
                 branches: [[name: '*/main']],
-                userRemoteConfigs: [[credentialsId: 'git-credentials', url: gitUrl]]
+                userRemoteConfigs: [[credentialsId: 'gitCredentialsId', url: gitUrl]]
             ])
             currentBuild.displayName = gitUrl + env.BUILD_NUMBER
             echo "Checkout successful: ${gitUrl}"
