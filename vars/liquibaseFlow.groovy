@@ -7,7 +7,7 @@ def appci() {
             cat liquibase-flowfile.yaml
             liquibase --defaultsFile=liquibase.properties \
                 changelog-file=changelog/changelog.xml \
-                flow --flowfile=${flowfile}
+                flow --flowfile=liquibase-ci.flowfile.yaml
         """
     }
 
