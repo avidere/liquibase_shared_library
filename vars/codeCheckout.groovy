@@ -3,7 +3,7 @@ def call(){
          try {
             checkout([
                 $class: 'GitSCM',
-                branches: [[name: '*/main']],
+                branches: [[name: '*/$BRANCH_NAME']],
                 userRemoteConfigs: [[credentialsId: 'gitCredentialsId', url: gitUrl]]
             ])
             currentBuild.displayName = repositoryName + "-" + BUILD_NUMBER
