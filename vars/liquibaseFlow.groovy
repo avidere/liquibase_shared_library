@@ -5,7 +5,6 @@ def appci() {
     
         bat """
             liquibase --defaultsFile=liquibase.properties \
-                changelog-file=changelog/changelog.xml \
                 flow --flowfile=liquibase-ci.flowfile.yaml
         """
     
