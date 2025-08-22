@@ -3,7 +3,7 @@ def appci() {
     // writeFile file: 'liquibase-flowfile.yaml', text: flowfile
 
     ansiColor('xterm') {
-        sh """
+        bat """
             cat liquibase-flowfile.yaml
             liquibase --defaultsFile=liquibase.properties \
                 changelog-file=changelog/changelog.xml \
