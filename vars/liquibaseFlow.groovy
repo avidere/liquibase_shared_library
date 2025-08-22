@@ -1,6 +1,6 @@
 def appci() {
-    def flowfile = libraryResource('config/liquibase-flowfile.yaml')
-    writeFile file: 'liquibase-flowfile.yaml', text: flowfile
+    // def flowfile = libraryResource('config/liquibase-flowfile.yaml')
+    // writeFile file: 'liquibase-flowfile.yaml', text: flowfile
 
     ansiColor('xterm') {
         sh """
