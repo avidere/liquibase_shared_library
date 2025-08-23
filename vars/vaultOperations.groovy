@@ -1,7 +1,7 @@
 def generateToken(String namespace) {
     withCredentials([
         usernamePassword(
-            credentialsId: vaultcred,
+            credentialsId: 'vaultcred',
             passwordVariable: 'secretID',
             usernameVariable: 'roleID'
         )
