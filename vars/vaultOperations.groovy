@@ -6,7 +6,7 @@ def generateToken(String namespace) {
             usernameVariable: 'roleID'
         )
     ]) {
-        bat """
+        sh """
         curl -k \
           -H "X-Vault-Namespace: ${namespace}" \
           --request POST \
