@@ -1,11 +1,11 @@
 def appci(String flowfile) {
-        def flowfile = libraryResource('config/liquibase-ci.flowfile.yaml')
-        writeFile file: 'liquibase-ci.flowfile.yaml', text: flowfile
+        def flowfiles = libraryResource('config/flowfiles/${flowfile}')
+        writeFile file: 'flowfile.yaml', text: flowfiles
 
     
         sh """
             liquibase --defaultsFile=liquibase.properties \
-                flow --flowfile=${flowfile}
+                flow --flowfile=flowfile.yaml 
         """
     
 
