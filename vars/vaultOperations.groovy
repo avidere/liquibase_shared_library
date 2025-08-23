@@ -7,14 +7,16 @@ def generateToken(String namespace) {
         )
     ]) {
         bat """
-        curl -k \
-          -H "X-Vault-Namespace: ${namespace}" \
-          --request POST \
-          --data '{\"role_id\": \"${roleID}\", \"secret_id\": \"${secretID}\"}' \
-          ${VAULT_ADDR}/v1/auth/approle/login | jq -r '.auth.client_token' > token.json
+        "C:\\Program Files\\Git\\bin\\bash.exe" -c '
+          curl -s -k \
+            -H "X-Vault-Namespace: ${namespace}" \
+            --request POST \
+            --data "{\\\\\\"role_id\\\\\\": \\\\\\"${roleID}\\\\\\", \\\\\\"secret_id\\\\\\": \\\\\\"${secretID}\\\\\\"}" \
+            ${VAULT_ADDR}/v1/auth/approle/login \
+          | jq -r .auth.client_token > token.json
+        '
         """
-        def authProps = readJSON file: 'token.json'
-        def token = authProps['client_token']
+        def token = readFile('token.json').trim()
         return token
     }
 }
