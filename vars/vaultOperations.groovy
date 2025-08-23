@@ -1,5 +1,5 @@
 def call(){
-    sh """
+    bat """
     curl -s --header \
     "X-Vault-Namespace: $VAULT_NAMESPACE" \
     --request POST --data '{
