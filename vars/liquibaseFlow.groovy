@@ -1,5 +1,5 @@
-def appci() {
-        def flowfiles = libraryResource('config/flowfiles/liquibase-ci.flowfile.yaml')
+def appci(String flowfile) {
+        def flowfiles = libraryResource("config/flowfiles/${flowfile}")
         writeFile file: 'flowfile.yaml', text: flowfiles
 
     
@@ -11,9 +11,9 @@ def appci() {
 
 }
 
-def appcd(String) {
-     def flowfile = libraryResource('config/liquibase-flowfile.yaml')
-     writeFile file: 'liquibase-flowfile.yaml', text: flowfile
+def appcd(String flowfile) {
+     def flowfiles = libraryResource("config/flowfiles/${flowfile}")
+     writeFile file: 'liquibase-flowfile.yaml', text: flowfiles
 
     
         sh """
