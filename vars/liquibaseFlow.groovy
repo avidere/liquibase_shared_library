@@ -1,6 +1,6 @@
 def appci(String flowfile) {
     try {
-        def flowfiles = libraryResource("config/flowfiles/${flowfile}")
+        def flowfiles = libraryResource("config/flowfiles/liquibase-ci.flowfile.yaml")
         writeFile file: 'flowfile.yaml', text: flowfiles
         comment = 'Starting Liquibase Execution'
         sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
@@ -8,7 +8,7 @@ def appci(String flowfile) {
 
         sh '''
                 liquibase --defaultsFile=liquibase.properties \
-                        flow --flowfile=liquibase-cd.flowfile.yaml --output-file=output.txt --log-file-liquibase.log
+                        flow --flowfile=${flowfiles} --output-file=output.txt --log-file-liquibase.log
                 '''
         } catch (Exception e) {
         failed_stage = sh(
