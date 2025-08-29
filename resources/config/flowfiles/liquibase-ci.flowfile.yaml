@@ -1,12 +1,22 @@
-Stages:
+stages:
   Status:
     actions:
       - type: liquibase
-        command: status
-        cmdArgs: {verbose: true, changelog-file: "${changelog}"}
+        command: Status
+        cmdArgs: {verbose: true, changeLogFile: changelog/changelog.xml}
+        properties: liquibase.properties
   
-  validation:
+  Validation:
     actions:
       - type: liquibase
-        command: validate
-        cmdArgs: {changelog-file: "${changelog}"}
+        command: Validate
+        cmdArgs: {changeLogFile: changelog/changelog.xml}
+        properties: liquibase.properties
+  
+  Update:
+    actions:
+      - type: liquibase
+        command: Update
+        cmdArgs: {changeLogFile: changelog/changelog.xml}
+        properties: liquibase.properties
+        
