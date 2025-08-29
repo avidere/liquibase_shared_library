@@ -1,5 +1,5 @@
 def call () {
     sh """
-        liquibase --defaultsFile=liquibase.properties flow --flowfile=flowfile.yaml --output-file=output.txt --log-file-liquibase.log
+        liquibase --defaultsFile=liquibase.properties flow --flowfile=liquibase-ci.flowfile.yaml --output-file=output.txt --log-file-liquibase.log
         """
 }
