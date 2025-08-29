@@ -11,7 +11,7 @@ def appci(String flowfile) {
                         flow --flowfile=flowfile.yaml --output-file=output.txt --log-file-liquibase.log
                 """
         } catch (Exception e) {
-        failed_stage = sh(
+        def failed_stage = sh(
                     returnStdout: true,
                     script: "jq -r '(select(.flowFileFailedStage != null) | .flowFileFailedStage)' " +
                             'liquibase.log | head -1 || true'
