@@ -6,10 +6,10 @@ def appci(String flowfile) {
         sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
         sh "echo '[INFO] $timestamp ${comment}' >> $failFile"
 
-        sh '''
+        sh """
                 liquibase --defaultsFile=liquibase.properties \
                         flow --flowfile=${flowfiles} --output-file=output.txt --log-file-liquibase.log
-                '''
+                """
         } catch (Exception e) {
         failed_stage = sh(
                     returnStdout: true,
