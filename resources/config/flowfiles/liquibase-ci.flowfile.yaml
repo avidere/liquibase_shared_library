@@ -3,12 +3,12 @@ stages:
     actions:
       - type: liquibase
         command: Status
-        cmdArgs: {verbose: true, changeLogFile: ${changelog}}
+        cmdArgs: {verbose: true, changeLogFile: "${changelog}"}
         
   
   Validation:
     actions:
       - type: liquibase
         command: Validate
-        cmdArgs: {changeLogFile: ${changelog}}
+        cmdArgs: {changeLogFile: "${changelog}"}
         
