@@ -33,7 +33,7 @@ def call(def ServiceNow, def REQUEST_NUMBER, def HttpProxy, def SNApi) {
                         sh "echo '[INFO] $comment' >> $failFile"
                         println("Current time: " + currentTime)
                         def dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                        def currentHour = currentTime.format('H',TimeZone.getTimeZone("America/New_York")).toInteger()
+                        def currentHour = currentTime.format('H',TimeZone.getTimeZone('America/New_York')).toInteger()
 
                     } else {
                         comment = "RITM is not Active, Please provide Active RITM for deployment"
@@ -44,13 +44,13 @@ def call(def ServiceNow, def REQUEST_NUMBER, def HttpProxy, def SNApi) {
                         comment = "The Provided RITM is not a Database Request, Please provide a valid RITM\\n\\n"
                         sh "echo '[INTO] $comment >> $failFile"
                         throw new Exeception(comment)
-                    }
+                }
             }   else {
                         comment = "The Provided RITM is not a valid Request, Please provide a valid RITM\\n\\n"
                         sh "echo '[INTO] $comment >> $failFile"
                         throw new Exeception(comment)
-                    }
             }
+        }
         } catch (Exception e) {
             comment = "An excetion Occured during RITM validation.\\n\\n"
             sh"echo '[ERROR] $comment' >> $failFile"
