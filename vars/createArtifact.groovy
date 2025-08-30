@@ -19,7 +19,7 @@ def call() {
             echo \$scriptPath
             cp -f liquibase.properties_from_source config/liquibase.properties
             zip -r ${WORKSPACE}/{artifact}-${BUILD_NUMBER}.zip  ${changelog} config/liquibase.properties artifact.properties config/* \$validationfile
-
+        '''
 
     } catch (e) {
         echo "Error: An exception during zip worspace stage: ${e}"
