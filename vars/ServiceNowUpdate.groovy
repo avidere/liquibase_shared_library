@@ -27,6 +27,7 @@
 //           //  def sn_comment = sh(returnStdout: true, script: """curl -X PATCH -s -k -u $USERNAME:'$PASSWORD' ${SNApi}/table/${table_type}/${sn_request_sys_id} -H 'Content-Type: application/json' -d '${status}' """)
 //     }
 // }
+
 def call() {
     withCredentials([usernamePassword(credentialsId: ServiceNow, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
         if ("${REQUEST_NUMBER}".contains('CHG')) {
@@ -49,7 +50,7 @@ def call() {
         def content = sh(returnStdout: true, script: "cat ${WORKSPACE}/ServiceNow_PipelineSummary.txt")
         def comment = content.trim()
 
-        // Insert comment into sys_journal_field
+        // Insert comment into sys_journal_field with table_name
         def sn_comment = sh(returnStdout: true, script: """
             curl -X POST -s -k -u ${USERNAME}:'${PASSWORD}' \
             "${SNApi}/table/sys_journal_field" \
@@ -57,6 +58,7 @@ def call() {
             -d '{
                 "element_id": "${sn_request_sys_id}",
                 "element": "comments",
+                "table_name": "${table_type}",
                 "value": "${comment}"
             }'
         """)
