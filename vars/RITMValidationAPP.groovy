@@ -3,7 +3,7 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
     try {
         println "Proceeding with RITM Validation...."
         withCredentials([usernamePassword(credentialsId: ServiceNow, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-            def curlResponse = sh(returnStdout: true, script: "curl -s -k -u ${USERNAME}:'${PASSWORD}' '${SNApi}/v2/table/sc_re_item?sysparam_display_value=true&sysparam_query=number=number=${RITM_NUMBER}' | jq -r .result[]")
+            def curlResponse = sh(returnStdout: true, script: "curl -s -k -u ${USERNAME}:'${PASSWORD}' '${SNApi}/table/sc_request?sysparam_display_value=true&sysparam_query=number=number=${RITM_NUMBER}' | jq -r .result[]")
             
             if (curlResponse) {
                 def json = readJSON(text: curlResponse)
