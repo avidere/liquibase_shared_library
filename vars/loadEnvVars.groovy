@@ -53,4 +53,6 @@ def call(){
    env.groupName = "${projKey}/${gitRepo}/${groupId}"   
 
    env.artifact = "${projKey}-${gitRepo}-${groupId}"
+
+   env.BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + " / " + currentBuild.getBuildCauses()[0].userId
 }
