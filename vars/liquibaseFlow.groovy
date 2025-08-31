@@ -15,7 +15,7 @@ def appci(String flowfile) {
         } catch (Exception e) {
         def failed_stage = sh(returnStdout: true, script: "jq -r '(select(.flowFileFailedStage != null) | .flowFileFailedStage)' " + 'liquibase.log | head -1 || true').trim()
         echo "Failed Stage: ${failed_stage}"
-        def comment = "Liquibase Execution Failed at Stage: ${failed_stage} \\n"
+        comment = "Liquibase Execution Failed at Stage: ${failed_stage} \\n"
         sh "echo '[ERROR] $timestamp ${comment}' >> $failFile"
 
         comment = "For failure reason chack file errorLog_${BUILD_NUMBER}.txt attached to ticket\\n"

@@ -52,7 +52,7 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
         }
         } catch (Exception e) {
             comment = "An excetion Occured during RITM validation.\\n\\n"
-           sh"echo '[ERROR] $comment' >> $failFile"
+            sh"echo '[ERROR] $comment' >> $failFile"
             currentBuild.result = 'FAILURE'
             error(e)
 
