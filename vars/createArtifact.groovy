@@ -18,7 +18,7 @@ def call() {
         '''
     } catch (e) {
         echo "Error: An exception during zip workspace stage: ${e}"
-        error("zip workspace failed")
+        error('zip workspace failed')
         currentBuild.result = 'FAILURE'
     }
 }

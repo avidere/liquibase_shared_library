@@ -8,7 +8,7 @@ def call(def ServiceNow, def REQUEST_NUMBER, def HttpProxy, def SNApi) {
 
         withCredentials([usernamePassword(credentialsId: ServiceNow, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
             def curlResponse = sh(returnStdout: true, script: "curl -s -k -u ${USERNAME}:'${PASSWORD}' -x ${HttpProxy} '${SNApi}'/v2/table/change_request?sysparm_query=number=${CR_NUMBER}&sysparamdisplay_value=true$' | jq -r '.result[]")
-            
+
             if (curlResponse) {
                 def json = readJSON text: curlResponse
                 def plannedStartDateTime = json.u_disired_start_date //start time from servicenow

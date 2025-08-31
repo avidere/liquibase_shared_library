@@ -4,7 +4,7 @@ def call (comment) {
     sh """
         set +xe
         if [ ! -f ServiceNow_PipelineSummary.txt ];
-        then 
+        then
             touch ServiceNow_PipelineSummary.txt
         fi
 

@@ -6,7 +6,7 @@ def call() {
         '''
     } catch (e) {
         echo "Error: An exception Occured during the Tag creation stage: ${e}"
-        error("Tag Creation Failed")
+        error('Tag Creation Failed')
         currentBuild.result = 'FAILURE'
     }
-}    
+}

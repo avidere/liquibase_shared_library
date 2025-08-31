@@ -1,5 +1,5 @@
 def call() {
-    echo "Cleaning Jenkins workspace..."
+    echo 'Cleaning Jenkins workspace...'
     deleteDir()
-    echo "Workspace cleaned successfully."
+    echo 'Workspace cleaned successfully.'
 }
