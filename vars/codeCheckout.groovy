@@ -6,7 +6,7 @@ def call(){
                 branches: [[name: '*/$BRANCH_NAME']],
                 userRemoteConfigs: [[credentialsId: 'gitCredentialsId', url: gitUrl]]
             ])
-        currentBuild.displayName = gitRepo + "-" + BUILD_NUMBER
+        currentBuild.displayName = REQUEST_NUMBER + "-" + BUILD_NUMBER
         echo "Checkout successful: ${gitUrl}"
         } catch (hudson.plugins.git.GitException e) {
         /* groovylint-disable-next-line UnnecessaryGetter */
