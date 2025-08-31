@@ -33,4 +33,5 @@ def call(){
    env.ServiceNow = creds['ServiceNow'] 
 
    env.REQUEST_NUMBER = params.REQUEST_NUMBER
+   env.SN_NUMBER = params.REQUEST_NUMBER
 }
