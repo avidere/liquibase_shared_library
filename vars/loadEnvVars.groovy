@@ -38,6 +38,8 @@ def call(){
    //Nexus related ENV varaibles
    env.NexusCreds = creds['Nexus_Admin']
 
+   env.nexusHost = props['NEXUS_PROD']
+
    env.nexusTagApiUrl = "${nexusHost}/service/rest/v1/tags"
 
    env.Nexus_Liquibase_repo = props['NEXUS_REPO']
