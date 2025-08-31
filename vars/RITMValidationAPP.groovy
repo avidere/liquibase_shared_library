@@ -2,8 +2,8 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
     def comment = ""
     try {
         println "Proceeding with RITM Validation...."
-        withCredentials([usernamePassword(credentialsId: ServiceNow, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
-            def curlResponse = sh(returnStdout: true, script: "curl -s -k -u ${USERNAME}:'${PASSWORD}' '${SNApi}/table/sc_request?sysparam_display_value=true&sysparam_query=number=number=${RITM_NUMBER}' | jq -r .result[]")
+       // withCredentials([usernamePassword(credentialsId: ServiceNow, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+            def curlResponse = sh(returnStdout: true, script: "curl -s -k -u admin:A@vinash2412 'https://dev313863.service-now.com/api/now/table/sc_request?sysparam_display_value=true&sysparam_query=number=number=${RITM_NUMBER}' | jq -r .result[]")
             
             if (curlResponse) {
                 def json = readJSON(text: curlResponse)
@@ -47,7 +47,7 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
                   //      sh "echo '[INTO] $comment >> $failFile"
                         throw new Exception(comment)
             }
-        }
+        //}
         } catch (Exception e) {
             comment = "An excetion Occured during RITM validation.\\n\\n"
          //   sh"echo '[ERROR] $comment' >> $failFile"
