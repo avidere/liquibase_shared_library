@@ -1,10 +1,10 @@
 def call(){
     try {
-        if ( (JOB_NAME.contains("Liquibase")) ){
+        if ( (JOB_NAME.contains("liquibase")) ){
             if ( "${REQUEST_NUMBER}".contains("CHG")){
                 println "CR validation for liquibase Pipelines"
                 CRValidationAPP(ServiceNow, REQUEST_NUMBER, HttpProxy, SNApi)
-            } else if ( "${REQUEST_NUMBER}".contains("RITM")){
+            } else if ( "${REQUEST_NUMBER}".contains("REQ")){
                 println "RITM validation for liquibase Pipelines"
                 RITMValidationAPP(ServiceNow, REQUEST_NUMBER, HttpProxy, SNApi)
             } else {
