@@ -7,7 +7,7 @@ def call() {
             }
             def curlResponse = sh(returnStdout: true, script: "curl -s -k -u admin:A@vinash2412 '${SNApi}/table/${table_type}?sysparam_query=number=number=${REQUEST_NUMBER}&sysparam_display_value=true&' | jq -r .result[]")
             
-            def json = readJSON(text.curlResponse)
+            def json = readJSON(text: curlResponse)
             sn_request_sys_id = json.sys_id
 
             content = sh(returnStdout: true, script: "echo \$(cat ${WORKSPACE}/serviceNow_PipelineSummary.txt)")
