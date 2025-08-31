@@ -3,9 +3,9 @@ def call() {
             if ( "${REQUEST_NUMBER}".contains("CHG")) {
                 table_type = "change_request"
             } else {
-                table_type = "sc_request" 
+                table_type = "sc_req_item" 
             }
-            def curlResponse = sh(returnStdout: true, script: "curl -s -k -u admin:A@vinash2412 '${SNApi}/table/${table_type}?sysparam_query=number=number=${REQUEST_NUMBER}&sysparam_display_value=true&' | jq -r .result[]")
+            def curlResponse = sh(returnStdout: true, script: "curl -s -k -u ${USERNAME}:'${PASSWORD}' '${SNApi}/table/${table_type}?sysparam_query=number=number=${REQUEST_NUMBER}&sysparam_display_value=true&' | jq -r .result[]")
             
             def json = readJSON(text: curlResponse)
             sn_request_sys_id = json.sys_id
