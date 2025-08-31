@@ -31,4 +31,6 @@ def call(){
    env.SNAPiupload = props['SN_API_UPLOAD']
 
    env.ServiceNow = creds['ServiceNow'] 
+
+   env.REQUEST_NUMBER = params.REQUEST_NUMBER
 }
