@@ -15,7 +15,7 @@ def call() {
 
             def status = "{ \"comments\": \"${comment}\" }"
 
-            def sn_comment = sh(returnStdout: true script: """curl -X PATCH -s -k -u $USERNAME:'$PASSWORD' ${SNApi}/table/${table_type}/${sn_request_sys_id} -H 'Content-Type: application/json' -d '${status}' """)
+            def sn_comment = sh(returnStdout: true, script: """curl -X PATCH -s -k -u $USERNAME:'$PASSWORD' ${SNApi}/table/${table_type}/${sn_request_sys_id} -H 'Content-Type: application/json' -d '${status}' """)
 
         }
 }
