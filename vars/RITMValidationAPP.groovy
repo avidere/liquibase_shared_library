@@ -24,10 +24,10 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
                   //  sh "echo '[INFO] $comment' >> $successFile"
                  //   sh "echo '[INFO] $comment' >> $failFile"
 
-                    if (json.state == 'approved') {
+                    if (json.request_state == 'approved') {
                    // if (json.state == 'Active') {
                         println "RITM is in Active state"
-                        comment = "RITM is in Acti state\\n\\n"
+                        comment = "RITM is in Active state\\n\\n"
                     //    sh "echo '[INFO] $comment' >> $successFile"
                     //    sh "echo '[INFO] $comment' >> $failFile"
                         println("Current time: " + currentTime)
