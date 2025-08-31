@@ -11,7 +11,7 @@ def call() {
             if [[ ${changelog} =~ "xml"]]
             then
                 scriptPath=\$(cat ${changelog} | grep -o 'path="[^"]*"' | cut -d'"' -f2 | tr -d '"')
-            elseif [[ ${changelog} =~ "yaml" ]]
+            elif [[ ${changelog} =~ "yaml" ]]
             then
                 scriptPath=\$(cat ${changelog} | grep -w "path:" | cut -d: -f2 | tr -d " "))")
             fi
