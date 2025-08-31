@@ -3,7 +3,7 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
         println "Proceeding with RITM Validation...."
         withCredentials([usernamePassword(credentialsId: ServiceNow, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
             def curlResponse = sh(returnStdout: true, script: "curl -s -k -u ${USERNAME}:'${PASSWORD}' '${SNApi}/v2/table/sc_re_item?sysparam_display_value=true&sysparam_query=number=number=${RITM_NUMBER}' | jq -r .result[]")
-            def comment = ""
+            
             if (curlResponse) {
                 def json = readJSON(text: curlResponse)
 
@@ -18,13 +18,13 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
 
                 if (json.cat_item.display_value.contains(display_value)) {
                     println "RITM is a valid Database Request. Proceeding with state validation."
-                    comment = "RITM is a valid Database Request. Proceeding with state validation.\\n\\n"
+                    def comment = "RITM is a valid Database Request. Proceeding with state validation.\\n\\n"
                   //  sh "echo '[INFO] $comment' >> $successFile"
                  //   sh "echo '[INFO] $comment' >> $failFile"
 
                     if (json.state == 'Active') {
                         println "RITM is in Acti state"
-                        comment = "RITM is in Acti state\\n\\n"
+                    def comment = "RITM is in Acti state\\n\\n"
                     //    sh "echo '[INFO] $comment' >> $successFile"
                     //    sh "echo '[INFO] $comment' >> $failFile"
                         println("Current time: " + currentTime)
@@ -32,23 +32,23 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
                       //  def currentHour = currentTime.format('H',TimeZone.getTimeZone('America/New_York')).toInteger()
 
                     } else {
-                        comment = "RITM is not Active, Please provide Active RITM for deployment"
+                        def comment = "RITM is not Active, Please provide Active RITM for deployment"
                       //  sh "echo '[INTO] $comment >> $failFile"
                         throw new Exception(comment)
                     }
                 } else {
-                        comment = "The Provided RITM is not a Database Request, Please provide a valid RITM\\n\\n"
+                        def comment = "The Provided RITM is not a Database Request, Please provide a valid RITM\\n\\n"
                      //   sh "echo '[INTO] $comment >> $failFile"
                         throw new Exception(comment)
                 }
             }   else {
-                        comment = "The Provided RITM is not a valid Request, Please provide a valid RITM\\n\\n"
+                        def comment = "The Provided RITM is not a valid Request, Please provide a valid RITM\\n\\n"
                   //      sh "echo '[INTO] $comment >> $failFile"
                         throw new Exception(comment)
             }
         }
         } catch (Exception e) {
-            comment = "An excetion Occured during RITM validation.\\n\\n"
+            def comment = "An excetion Occured during RITM validation.\\n\\n"
          //   sh"echo '[ERROR] $comment' >> $failFile"
             currentBuild.result = 'FAILURE'
             error(e)
