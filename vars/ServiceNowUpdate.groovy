@@ -10,7 +10,7 @@ def call() {
             def json = readJSON(text: curlResponse)
             sn_request_sys_id = json.sys_id
 
-            content = sh(returnStdout: true, script: "echo \$(cat ${WORKSPACE}/serviceNow_PipelineSummary.txt)")
+            content = sh(returnStdout: true, script: "echo \$(cat ${WORKSPACE}/ServiceNow_PipelineSummary.txt)")
             comment = content.trim()
 
             def status = "{ \"comments\": \"${comment}\" }"
