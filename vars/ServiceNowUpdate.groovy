@@ -28,6 +28,8 @@
 //     }
 // }
 
+import groovy.json.JsonOutput
+
 def call() {
     withCredentials([usernamePassword(credentialsId: ServiceNow, passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
         if ("${REQUEST_NUMBER}".contains('CHG')) {
@@ -50,19 +52,22 @@ def call() {
         def content = sh(returnStdout: true, script: "cat ${WORKSPACE}/ServiceNow_PipelineSummary.txt")
         def comment = content.trim()
 
-        // Insert comment into sys_journal_field with table_name
+        // Create valid JSON payload
+        def payload = JsonOutput.toJson([
+            element_id: sn_request_sys_id,
+            element: 'comments',
+            table_name: table_type,
+            value: comment
+        ])
+
+        // Insert comment into sys_journal_field
         def sn_comment = sh(returnStdout: true, script: """
             curl -X POST -s -k -u ${USERNAME}:'${PASSWORD}' \
             "${SNApi}/table/sys_journal_field" \
             -H "Content-Type: application/json" \
-            -d '{
-                "element_id": "${sn_request_sys_id}",
-                "element": "comments",
-                "table_name": "${table_type}",
-                "value": "${comment}"
-            }'
+            -d '${payload}'
         """)
-        
+
         echo "ServiceNow response: ${sn_comment}"
     }
 }
