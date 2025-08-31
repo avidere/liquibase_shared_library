@@ -4,7 +4,7 @@ def call() {
             if ( "${REQUEST_NUMBER}".contains('CHG')) {
                 println 'CR validation for liquibase Pipelines'
                 CRValidationAPP(ServiceNow, REQUEST_NUMBER, HttpProxy, SNApi)
-            } else if ( "${REQUEST_NUMBER}".contains('REQ')) {
+            } else if ( "${REQUEST_NUMBER}".contains('REQ') || "${REQUEST_NUMBER}".contains('RITM'))  {
                 println 'RITM validation for liquibase Pipelines'
                 RITMValidationAPP(ServiceNow, REQUEST_NUMBER, SNApi)
             } else {
