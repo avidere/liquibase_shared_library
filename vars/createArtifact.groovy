@@ -13,7 +13,7 @@ def call() {
             fi
 
             echo $scriptPath
-            cp -f liquibase.properties config/liquibase.properties
+            cp -f liquibase.properties_from_source config/liquibase.properties
             zip -r ${WORKSPACE}/${artifact}-${BUILD_NUMBER}.zip ${changelog} config/liquibase.properties artifact.properties config/* $validationFile
         '''
     } catch (e) {
