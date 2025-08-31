@@ -17,6 +17,13 @@ def call() {
 
             def status = "{ \"comments\": \"${comment}\" }"
 
-            def sn_comment = sh(returnStdout: true, script: """curl -X PATCH -s -k -u $USERNAME:'$PASSWORD' ${SNApi}/table/${table_type}/${sn_request_sys_id} -H 'Content-Type: application/json' -d '${status}' """)
+            def sn_comment = sh(returnStdout: true, script:curl -X POST -s -k -u "admin:A@vinash2412" "https://dev313863.service-now.com/api/now/table/sys_journal_field" -H "Content-Type: application/json" \
+                -d '{
+                        "element_id": '${sn_request_sys_id}',
+                        "element": "comments",
+                        "value": '${status}'
+                    }')
+
+          //  def sn_comment = sh(returnStdout: true, script: """curl -X PATCH -s -k -u $USERNAME:'$PASSWORD' ${SNApi}/table/${table_type}/${sn_request_sys_id} -H 'Content-Type: application/json' -d '${status}' """)
     }
 }
