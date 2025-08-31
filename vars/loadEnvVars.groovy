@@ -54,5 +54,11 @@ def call(){
 
    env.artifact = "${projKey}-${gitRepo}-${groupId}"
 
+   env.CurrentDate = "${new Date()}"
+
+   env.successFile = 'Success_PipelineSummary.txt'
+
+   env.failFile = "Failure_PipelineSummary.txt"
+
    env.BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + " / " + currentBuild.getBuildCauses()[0].userId
 }
