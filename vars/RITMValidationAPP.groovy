@@ -12,7 +12,7 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
 
                 //print curl response of RITM request
                 println("Requested Item: " + json.short_description)
-                println("Request Current State: " + json.state)
+                println("Request Current State: " + json.request_state)
                 println("RITM Request display Value: " + json.cat_item.display_value)
 
                 // print devops-control RITM display_value value for application
@@ -24,7 +24,7 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
                  //   sh "echo '[INFO] $comment' >> $failFile"
 
                     if (json.state == 'Active') {
-                        println "RITM is in Acti state"
+                        println "RITM is in Active state"
                         comment = "RITM is in Acti state\\n\\n"
                     //    sh "echo '[INFO] $comment' >> $successFile"
                     //    sh "echo '[INFO] $comment' >> $failFile"
