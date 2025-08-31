@@ -21,15 +21,15 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
                     //if (json.cat_item.display_value.contains(display_value)) { its in real request
                     println 'RITM is a valid Database Request. Proceeding with state validation.'
                     comment = 'RITM is a valid Database Request. Proceeding with state validation.\\n\\n'
-                    sh "echo '[INFO] $comment' >> $successFile"
-                    sh "echo '[INFO] $comment' >> $failFile"
+                    sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
+                    sh "echo '[INFO] $timestamp ${comment}' >> $failFile"
 
                     if (json.approval == 'approved') {
                         // if (json.state == 'Active') {
                         println 'RITM is in Active state'
                         comment = 'RITM is in Active state\\n\\n'
-                        sh "echo '[INFO] $comment' >> $successFile"
-                        sh "echo '[INFO] $comment' >> $failFile"
+                        sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
+                        sh "echo '[INFO] $timestamp ${comment}' >> $failFile"
                         println('Current time: ' + currentTime)
                     //  def dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                     //  def currentHour = currentTime.format('H',TimeZone.getTimeZone('America/New_York')).toInteger()
