@@ -11,7 +11,7 @@ def appci(String flowfile) {
         sh "echo '[INFO] $timestamp ${comment}' >> $failFile"
 
         sh """
-                liquibase --defaultsFile=liquibase.properties \
+                liquibase --defaultsFile=config/liquibase.properties \
                         flow --flowfile=flowfile.yaml --output-file=output.txt --log-file=liquibase.log
                 """
         } catch (Exception e) {
