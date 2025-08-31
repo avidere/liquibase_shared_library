@@ -34,4 +34,21 @@ def call(){
 
    env.REQUEST_NUMBER = params.REQUEST_NUMBER
    env.SN_NUMBER = params.REQUEST_NUMBER
+
+   //Nexus related ENV varaibles
+   env.NexusCreds = creds['Nexus_Admin']
+
+   env.nexusTagApiUrl = "${nexusHost}/service/rest/v1/tags"
+
+   env.Nexus_Liquibase_repo = props['NEXUS_REPO']
+
+   env. nexusUrl = "${nexusHost}/repository/${Nexus_Liquibase_repo}"
+
+   env.groupId = params.ARTIFACT_GROUP
+
+   env.uploadUrl = "${nexusUrl}/${projKey}/${gitRepo}/${groupId}"
+
+   env.groupName = "${projKey}/${gitRepo}/${groupId}"   
+
+   env.artifact = "${projKey}-${gitRepo}-${groupId}"
 }
