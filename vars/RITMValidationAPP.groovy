@@ -13,7 +13,7 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
                 //print curl response of RITM request
                 println("Requested Item: " + json.short_description)
                 println("Request Current State: " + json.request_state)
-                println("Request Approva State: " + json.approval)
+                println("Request Approval State: " + json.approval)
                // println("RITM Request display Value: " + json.cat_item.display_value)
 
                 // print devops-control RITM display_value value for application
