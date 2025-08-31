@@ -28,8 +28,8 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
                     //    sh "echo '[INFO] $comment' >> $successFile"
                     //    sh "echo '[INFO] $comment' >> $failFile"
                         println("Current time: " + currentTime)
-                        def dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                        def currentHour = currentTime.format('H',TimeZone.getTimeZone('America/New_York')).toInteger()
+                      //  def dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                      //  def currentHour = currentTime.format('H',TimeZone.getTimeZone('America/New_York')).toInteger()
 
                     } else {
                         comment = "RITM is not Active, Please provide Active RITM for deployment"
