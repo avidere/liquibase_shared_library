@@ -14,10 +14,10 @@ def call(){
         }
         println "ServiceNow Validation for Liquibase Pipelines is completed"
        def comment = "ServiceNow Validation for Liquibase Pipelines is completed\\n\\n"
-       // sh "echo '[INFO] $comment' >> $successFile"
+       sh "echo '[INFO] $comment' >> $successFile"
     } catch (Exception e) {
         def comment = "An Exeception Occured during ServiceNow validation. \\n\\n"
-       // echo "[ERROR] $comment >> $failFile"
+       echo "[ERROR] $comment >> $failFile"
         currentBuild.result = 'FAILURE'
         error(e)
     }

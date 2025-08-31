@@ -21,38 +21,38 @@ def call(def ServiceNow, def REQUEST_NUMBER, def SNApi) {
                 //if (json.cat_item.display_value.contains(display_value)) { its in real request
                     println "RITM is a valid Database Request. Proceeding with state validation."
                     comment = "RITM is a valid Database Request. Proceeding with state validation.\\n\\n"
-                  //  sh "echo '[INFO] $comment' >> $successFile"
-                 //   sh "echo '[INFO] $comment' >> $failFile"
+                   sh "echo '[INFO] $comment' >> $successFile"
+                   sh "echo '[INFO] $comment' >> $failFile"
 
                     if (json.approval == 'approved') {
                    // if (json.state == 'Active') {
                         println "RITM is in Active state"
                         comment = "RITM is in Active state\\n\\n"
-                    //    sh "echo '[INFO] $comment' >> $successFile"
-                    //    sh "echo '[INFO] $comment' >> $failFile"
+                       sh "echo '[INFO] $comment' >> $successFile"
+                       sh "echo '[INFO] $comment' >> $failFile"
                         println("Current time: " + currentTime)
                       //  def dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                       //  def currentHour = currentTime.format('H',TimeZone.getTimeZone('America/New_York')).toInteger()
 
                     } else {
                         comment = "RITM is not Active, Please provide Active RITM for deployment"
-                      //  sh "echo '[INTO] $comment >> $failFile"
+                       sh "echo '[INTO] $comment >> $failFile"
                         throw new Exception(comment)
                     }
                 } else {
                         comment = "The Provided RITM is not a Database Request, Please provide a valid RITM\\n\\n"
-                     //   sh "echo '[INTO] $comment >> $failFile"
+                       sh "echo '[INTO] $comment >> $failFile"
                         throw new Exception(comment)
                 }
             }   else {
                         comment = "The Provided RITM is not a valid Request, Please provide a valid RITM\\n\\n"
-                  //      sh "echo '[INTO] $comment >> $failFile"
+                       sh "echo '[INTO] $comment >> $failFile"
                         throw new Exception(comment)
             }
         }
         } catch (Exception e) {
             comment = "An excetion Occured during RITM validation.\\n\\n"
-         //   sh"echo '[ERROR] $comment' >> $failFile"
+           sh"echo '[ERROR] $comment' >> $failFile"
             currentBuild.result = 'FAILURE'
             error(e)
 
