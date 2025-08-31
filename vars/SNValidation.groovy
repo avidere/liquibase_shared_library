@@ -6,7 +6,7 @@ def call(){
                 CRValidationAPP(ServiceNow, REQUEST_NUMBER, HttpProxy, SNApi)
             } else if ( "${REQUEST_NUMBER}".contains("REQ")){
                 println "RITM validation for liquibase Pipelines"
-                RITMValidationAPP(ServiceNow, REQUEST_NUMBER, HttpProxy, SNApi)
+                RITMValidationAPP(ServiceNow, REQUEST_NUMBER, SNApi)
             } else {
                 println "Jira validation for liquibase Pipelines"
                 JiraValidation(REQUEST_NUMBER)
