@@ -1,8 +1,8 @@
 def call() {
     try {
+        //COMMIT_ID=$(git -c ${WORKSPACE} rev-parse --short=11 HEAD)
         sh '''
-            COMMIT_ID=$(git -c ${WORKSPACE} rev-parse --short=11 HEAD)
-
+            
             echo changelogName=${changelog} >> artifact.properties
             echo branch=${gitBranch} >> artifact.properties
             echo artifactGroup=${groupId} >> artifact.properties
