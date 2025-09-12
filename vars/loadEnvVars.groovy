@@ -36,7 +36,7 @@ def call() {
    env.SN_NUMBER = params.REQUEST_NUMBER
 
    //Nexus related ENV varaibles
-   env.NexusCreds = creds['Nexus_Admin']
+   env.NexusCreds = creds['NexusCreds']
 
    env.nexusHost = props['NEXUS_PROD']
 
