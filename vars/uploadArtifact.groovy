@@ -1,6 +1,6 @@
 def artifactupload() {
     try {
-        def artifactName = ${artifact}-${BUILD_NUMBER}
+        def artifactName = "${artifact}-${BUILD_NUMBER}"
         withCredentials([usernamePassword(credentialsId: NexusCreds, passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
             sh(
                 script: """
