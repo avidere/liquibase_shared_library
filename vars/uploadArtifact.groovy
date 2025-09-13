@@ -6,7 +6,7 @@ def artifactupload() {
                 script: """
                     set -x
                     
-                    RResponse=\$(curl -v -u ${USER}:${PASSWORD} --upload-file ${artifactName}.zip ${uploadUrl}/${artifactName}.zip -s -o /de/null -w "%{http_code}")
+                    RResponse=\$(curl -v -u ${USER}:${PASSWORD} --upload-file ${artifactName}.zip ${uploadUrl}/${artifactName}.zip -s -o /dev/null -w "%{http_code}")
                     echo "RResponse: \$RResponse"
                     if [ "\$RResponse" == "201" ]; then
                         echo "Success"
