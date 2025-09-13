@@ -20,7 +20,7 @@ def artifactupload() {
         }
 
         echo "Artifact has been uploaded to nexus Successfully"
-        commet = "Artifact has been uploaded to nexus Successfully.\\n\\n"
+        comment = "Artifact has been uploaded to nexus Successfully.\\n\\n"
         sh"echo '[INFO] $comment' >> $successFile"
     } catch (e) {
         echo "Error: An exception Ocuured during the upload to nexus stage"
