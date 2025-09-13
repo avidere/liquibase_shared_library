@@ -1,6 +1,6 @@
 def call() {
     try {
-        if ( (JOB_NAME.contains('liquibase')) ) {
+        if ( (JOB_NAME.contains('Liquibase')) ) {
             if ( "${REQUEST_NUMBER}".contains('CHG')) {
                 println 'CR validation for liquibase Pipelines'
                 CRValidationAPP(ServiceNow, REQUEST_NUMBER, HttpProxy, SNApi)
