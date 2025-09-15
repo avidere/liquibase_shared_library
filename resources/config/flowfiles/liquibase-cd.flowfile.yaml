@@ -1,0 +1,19 @@
+stages:
+  Status:
+    actions:
+      - type: liquibase
+        command: Status
+        cmdArgs: {verbose: true, changeLogFile: "${changelog}"}
+        
+  Validation:
+    actions:
+      - type: liquibase
+        command: update
+        cmdArgs: {changeLogFile: "${changelog}"}
+
+endstage: #end stage will always execute
+  history:
+    actions:
+      - type: liquibase
+        command: history
+        cmdArgs: {changeLogFile: "${changelog}"}
