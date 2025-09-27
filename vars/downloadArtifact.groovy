@@ -4,11 +4,10 @@ def call() {
 
         withCredentials([usernamePassword(credentialsId: "${NexusCreds}", passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
             def NexusToken = "${USER}:${PASSWORD}".bytes.encodeBase64().toString()
-
+            echo "${NexusToken}"
             sh """
                 set +x
-                Response=\$(curl -s -o /dev/null -w "%{http_code}" -u ${USER}:${PASSWORD} \
-                ${nexusUrl}/${PROJECT_KEY}/${REPOSITORY_NAME}/Snapshot/${ENVIRONMENT}/${SCHEMA_NAME}_Snapshot_${ENVIRONMENT}.json)
+                Response=\$(curl -v -u ${USER}:${PASSWORD} -X GET ${nexusUrl}/${PROJECT_KEY}/${REPOSITORY_NAME}/Snapshot/${ENVIRONMENT}/${SCHEMA_NAME}_Snapshot_${ENVIRONMENT}.json -s -o /dev/null -w "%{http_code}")
 
                 echo "Response: \$Response"
 
