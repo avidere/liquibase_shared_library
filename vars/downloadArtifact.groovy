@@ -1,6 +1,6 @@
 def call() {
     try{
-        env.SUBSTR_COMPONENT = sh(script: "echo ${params.component_URL} | sed 's|${nexusUrl}/||'",returnStdout: true).trim()
+        env.SUBSTR_COMPONENT = sh(script: "echo ${params.Component_URL} | sed 's|${nexusUrl}/||'",returnStdout: true).trim()
 
         withCredentials([usernamePassword(credentialsId: "${NexusCreds}", passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
             def NexusToken = "${USER}:${PASSWORD}".bytes.encodeBase64().toString()
@@ -18,12 +18,10 @@ def call() {
                 else
                     echo "Snapshot doesn't exist."
                 fi
-
-                echo "Downloading component artifact..."
-                wget --header 'Authorization: Basic ${NexusToken}' --progress=bar:force "${params.component_URL}"
+                wget --header 'Authorization: Basic ${NexusToken}' --progress=bar:force "${params.Component_URL}"
             """
 
-            env.COMPONENT_FILE = sh(returnStdout: true,script: "echo \"${params.component_URL}\" | rev | cut -d/ -f1 | rev").trim()
+            env.COMPONENT_FILE = sh(returnStdout: true,script: "echo \"${params.Component_URL}\" | rev | cut -d/ -f1 | rev").trim()
 
             sh "unzip -q \"${env.COMPONENT_FILE}\""
         }
