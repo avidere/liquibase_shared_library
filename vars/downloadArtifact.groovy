@@ -29,7 +29,7 @@ def call() {
 
         env. validationFilePath = artifactProps['validationFile']
 
-        env.changelog = artifactProps[changelogName]
+        env.changelog = artifactProps['changelogName']
         sh """
             set +XV
             envsubst < $changelog > ${changelog}_updated
