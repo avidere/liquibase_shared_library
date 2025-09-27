@@ -13,12 +13,11 @@ def call() {
 
                 if [ "\$Response" == "200" ]; then 
                     echo "Success - Snapshot file exists. Downloading..."
-                    wget --header 'Authorization: Basic ${NexusToken}' --progress=bar:force \\
-                    "${nexusUrl}/${PROJECT_KEY}/${REPOSITORY_NAME}/Snapshot/${ENVIRONMENT}/${SCHEMA_NAME}_Snapshot_${ENVIRONMENT}.json"
+                    wget --header 'Authorization: Basic ${NexusToken}' --progress=bar:force \"${nexusUrl}/${PROJECT_KEY}/${REPOSITORY_NAME}/Snapshot/${ENVIRONMENT}/${SCHEMA_NAME}_Snapshot_${ENVIRONMENT}.json\"
                 else
                     echo "Snapshot doesn't exist."
                 fi
-                wget --header 'Authorization: Basic ${NexusToken}' --progress=bar:force "${params.Component_URL}"
+                wget --header 'Authorization: Basic ${NexusToken}' --progress=bar:force \"${params.Component_URL}\"
             """
 
             env.COMPONENT_FILE = sh(returnStdout: true,script: "echo \"${params.Component_URL}\" | rev | cut -d/ -f1 | rev").trim()
