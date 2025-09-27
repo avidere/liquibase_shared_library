@@ -31,7 +31,7 @@ def call() {
 
         env.changelog = artifactProps['changelogName']
         sh """
-            set +XV
+            set +xv
             envsubst < $changelog > ${changelog}_updated
             rm $changelog
             mv ${changelog}_updated $changelog
