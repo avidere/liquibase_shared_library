@@ -1,3 +1,6 @@
+globalVariables:
+    DIFF_FILE: "${WORKSPACE}/DIFF_${ENVIRONMENT}.json"
+    SNAPSHOT_FILE: "${WORKSPACE}/${SCHEMA_NAME}_Snapshot_${ENVIRONMENT}.json"
 stages:
   Status:
     actions:
@@ -5,14 +8,20 @@ stages:
         command: Status
         cmdArgs: {verbose: true, changeLogFile: "${changelog}"}
         
-  Validation:
+  update:
     actions:
       - type: liquibase
         command: update
-        cmdArgs: {changeLogFile: "${changelog}"}
+        cmdArgs: {changeLogFile: "${changelog}", pro-global-strip-comments: "false"}
 
-endstage: #end stage will always execute
-  history:
+  snapshot:
+    actions:
+      - type: liquibase
+        command: snapshot
+        cmdArgs: {verbose: true, changeLogFile: "${changelog}", snapshot-format: "json"}
+        globalArgs: { outputfile: "${SNAPSHOT_FILE}"}
+
+endStage:
     actions:
       - type: liquibase
         command: history
