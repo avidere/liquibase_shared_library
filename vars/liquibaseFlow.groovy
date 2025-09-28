@@ -9,8 +9,7 @@ def appci(String flowfile) {
         sh "echo '[INFO] $timestamp ${comment}' >> $failFile"
 
         sh '''
-                liquibase --defaultsFile=config/liquibase.properties \
-                        flow --flowfile=flowfile.yaml --output-file=output.txt --log-file=liquibase.log
+                liquibase --defaultsFile=config/liquibase.properties flow --flowfile=flowfile.yaml --output-file=output.txt --log-file=liquibase.log
                 '''
         } catch (Exception e) {
         def failed_stage = sh(returnStdout: true, script: "jq -r '(select(.flowFileFailedStage != null) | .flowFileFailedStage)' " + 'liquibase.log | head -1 || true').trim()
@@ -41,8 +40,7 @@ def appcd(String flowfile) {
         sh "echo '[INFO] $timestamp ${comment}' >> $failFile"
 
         sh
-        '''liquibase --defaultsFile=liquibase.properties \
-                        flow --flowfile=liquibase-cd.flowfile.yaml --output-file=output.txt --log-file-liquibase.log'''
+        '''liquibase --defaultsFile=config/liquibase.properties flow --flowfile=liquibase-cd.flowfile.yaml --output-file=output.txt --log-file-liquibase.log'''
         } catch (Exception e) {
         failed_stage = sh(
                     returnStdout: true,
