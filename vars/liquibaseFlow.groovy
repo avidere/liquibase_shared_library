@@ -32,7 +32,7 @@ def appci(String flowfile) {
 
 def appcd(String flowfile) {
     try {
-        def flowfiles = libraryResource("config/flowfiles/${flowfile}")
+        def flowfiles = libraryResource "config/flowfiles/${flowfile}"
         writeFile file: 'flowfile.yaml', text: flowfiles
 
         def timestamp = new Date().format("yyyy-MM-dd'T'HH:mm:ss.SSSZ", TimeZone.getTimeZone('UTC'))
@@ -40,16 +40,11 @@ def appcd(String flowfile) {
         sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
         sh "echo '[INFO] $timestamp ${comment}' >> $failFile"
 
-        sh
-        '''
-        liquibase --defaultsFile=config/liquibase.properties flow --flowfile=flowfile.yaml --output-file=output.txt --log-file=liquibase.log
-        '''
+        sh '''
+                liquibase --defaultsFile=config/liquibase.properties flow --flowfile=flowfile.yaml --output-file=output.txt --log-file=liquibase.log
+                '''
         } catch (Exception e) {
-        failed_stage = sh(
-                    returnStdout: true,
-                    script: "jq -r '(select(.flowFileFailedStage != null) | .floFileFailedStage)' " +
-                            'liquibase.log | head -1 || true'
-                ).trim()
+        def failed_stage = sh(returnStdout: true, script: "jq -r '(select(.flowFileFailedStage != null) | .flowFileFailedStage)' " + 'liquibase.log | head -1 || true').trim()
         echo "Failed Stage: ${failed_stage}"
         comment = "Liquibase Execution Failed at Stage: ${failed_stage} \\n"
         sh "echo '[ERROR] $timestamp ${comment}' >> $failFile"
