@@ -10,8 +10,7 @@ def call(){
                     id: 'Deploy',
                     message: "\033[1;32mPlease review the script before proceeding with the deployment: ${linkedmessage}\033[0m",
                     ok: 'Approve',
-                    submitter: 'avinash,admin',   
-                    submitterParameter: 'approver')
+                    submitter: sqlApprover)
             log = currentBuild.rawBuild.getLog(2)
             log.each { line ->
                 if (!line.contains('truncated')) {
