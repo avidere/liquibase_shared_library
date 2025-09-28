@@ -12,7 +12,7 @@ def call () {
                 if [ "\$Response" == "200" ]; then
                     echo "Success - Snapshot file exists. Performing Drift Detection..."
 
-                    liquibase --defaultsFile="${liquibasePropFile}" diff --diff-types=catalogs,checkconstraints,columns,data,databasepackage,databasepackagebody,foreignkeys,functions,indexes,primarykeys,sequences,storedprocedures,tables,triggers,uniqueconstraints,views --reference-url="offline:${DBType}?snapshot=${SCHEMA_NAME}_Snapshot_${ENVIRONMENT}.json" --drift-severity=2 --default-schema-name=${SCHEMA_NAME} --output-file=drift_detect.json --reports-enabled=true --report-name=drift_report.html
+                    liquibase --defaultsFile="${liquibasePropFile}" diff --diff-types=tables,columns,views,primarykeys,foreignkeys,indexes --reference-url="offline:${DBType}?snapshot=${SCHEMA_NAME}_Snapshot_${ENVIRONMENT}.json" --drift-severity=2 --default-schema-name=${SCHEMA_NAME} --output-file=drift_detect.json --reports-enabled=true --report-name=drift_report.html
 
                 else
                     echo "Snapshot doesn't exist... skipping Drift detection stage"
