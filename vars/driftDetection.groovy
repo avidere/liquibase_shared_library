@@ -46,6 +46,8 @@ def call () {
             comment = "Drift detection command failed\\n\\n"
             sh"echo '[INDO] $comment' >> $successfile"
             sh"echo '[INDO] $comment' >> $failFile"
+            currentBuild.result = "FAILURE"
+            error(e)
         }
     }
 }
