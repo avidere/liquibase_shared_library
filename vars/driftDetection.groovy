@@ -41,6 +41,11 @@ def call () {
 
                 }
             } 
+        } else {
+            println "Drift detection command failed.."
+            comment = "Drift detection command failed\\n\\n"
+            sh"echo '[INDO] $comment' >> $successfile"
+            sh"echo '[INDO] $comment' >> $failFile"
         }
     }
 }
