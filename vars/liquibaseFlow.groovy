@@ -33,15 +33,15 @@ def appci(String flowfile) {
 def appcd(String flowfile) {
     try {
         def flowfiles = libraryResource("config/flowfiles/${flowfile}")
-        writeFile file: 'liquibase-flowfile.yaml', text: flowfiles
-        
+        writeFile file: 'flowfile.yaml', text: flowfiles
+
         def timestamp = new Date().format("yyyy-MM-dd'T'HH:mm:ss.SSSZ", TimeZone.getTimeZone('UTC'))
         comment = 'Starting Liquibase Execution'
         sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
         sh "echo '[INFO] $timestamp ${comment}' >> $failFile"
 
         sh
-        '''liquibase --defaultsFile=config/liquibase.properties flow --flowfile=liquibase-cd.flowfile.yaml --output-file=output.txt --log-file-liquibase.log'''
+        '''liquibase --defaultsFile=config/liquibase.properties flow --flowfile=flowfile.yaml --output-file=output.txt --log-file-liquibase.log'''
         } catch (Exception e) {
         failed_stage = sh(
                     returnStdout: true,
