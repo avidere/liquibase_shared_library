@@ -12,7 +12,7 @@ stages:
     actions:
       - type: liquibase
         command: update
-        cmdArgs: {changeLogFile: "${changelog}", pro-global-strip-comments: "false"}
+        cmdArgs: {changeLogFile: "${changelog}", pro-global-strip-comments: "false", force-on-partial-changes: "true", rollback-on-error: "true" }
 
   snapshot:
     actions:
