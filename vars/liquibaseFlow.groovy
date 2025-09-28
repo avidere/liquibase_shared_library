@@ -41,7 +41,9 @@ def appcd(String flowfile) {
         sh "echo '[INFO] $timestamp ${comment}' >> $failFile"
 
         sh
-        '''liquibase --defaultsFile=config/liquibase.properties flow --flowfile=flowfile.yaml --output-file=output.txt --log-file-liquibase.log'''
+        '''
+        liquibase --defaultsFile=config/liquibase.properties flow --flowfile=flowfile.yaml --output-file=output.txt --log-file=liquibase.log
+        '''
         } catch (Exception e) {
         failed_stage = sh(
                     returnStdout: true,
