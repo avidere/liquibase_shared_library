@@ -1,7 +1,7 @@
 def call(){
     try {
         sh """
-            liquibase --defaultsFile=config/liquibase.properties --changelogFile="${changelog}" --output-file=updatesql.txt
+            liquibase --defaultsFile=config/liquibase.properties update-sql --changelogFile="${changelog}" --output-file=updatesql.txt
         """
         def url = "${JOB_URL}${BUILD_NUMBER}/execution/node/10/ws/updatesql.txt"
         def linkedmessage = "<a></a href='${url}'>"
