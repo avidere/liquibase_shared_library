@@ -1,5 +1,17 @@
 def call() {
     try {
+        if ( (JOB_NAME.contains('DBA_Pipelines')) || (JOB_NAME.contains('DARE_Pipelines')) ) {
+            if ( "${REQUEST_NUMBER}".contains('CHG')) {
+                println 'CR validation for DBA Pipelines'
+                CRValidationDBA(ServiceNow, REQUEST_NUMBER, HttpProxy, SNApi)
+            } else if ( "${REQUEST_NUMBER}".contains('REQ') || "${REQUEST_NUMBER}".contains('RITM'))  {
+                println 'RITM validation for DBA Pipelines'
+                RITMValidationDBA(ServiceNow, REQUEST_NUMBER, SNApi)
+            } else {
+                println 'Jira validation for DBA Pipelines'
+                JiraValidation(REQUEST_NUMBER)
+            }
+        }
         if ( (JOB_NAME.contains('Liquibase')) ) {
             if ( "${REQUEST_NUMBER}".contains('CHG')) {
                 println 'CR validation for liquibase Pipelines'
