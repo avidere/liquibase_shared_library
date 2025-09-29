@@ -2,7 +2,7 @@ def dba(){
     currentBuild.displayName = SN_NUMBER + "-" + envir + "-" + Request_Type.substring(0,3) + "-" + BUILD_NUMBER
     try{
         unstash 'FILE'
-        file = sh(returnStdout: true, script: "if[ -z \"\$FILE_FILENAME\" ]; then echo no; fi").trim()
+        file = sh(returnStdout: true, script: "if [ -z \"\$FILE_FILENAME\" ]; then echo no; fi").trim()
         if (file == "no") {
             echo "No input provided for File parameter. please re-trigger the build with SQL script uploaded to FILE parameter.\\n\\n"
             sh"echo '[ERROR] $comment' >> $failFile"
