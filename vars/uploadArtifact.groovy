@@ -8,7 +8,7 @@ def artifactupload() {
                     
                     RResponse=\$(curl -v -u ${USER}:${PASSWORD} --upload-file ${artifactName}.zip ${uploadUrl}/${artifactName}.zip -s -o /dev/null -w "%{http_code}")
                     echo "RResponse: \$RResponse"
-                    if [ "\$RResponse" == "201" ]; then
+                    if [ "\$RResponse" = "201" ]; then
                         echo "Success"
                     else
                         echo " Failure"
@@ -39,7 +39,7 @@ def snapshotupload(){
                     set -x
                     RResponse=\$(curl -v -u ${USER}:${PASSWORD} --upload-file ${SCHEMA_NAME}_Snapshot_${ENVIRONMENT}.json ${nexusUrl}/${PROJECT_KEY}/${REPOSITORY_NAME}/Snapshot/${ENVIRONMENT}/${SCHEMA_NAME}_Snapshot_${ENVIRONMENT}.json -s -o /dev/null -w "%{http_code}")
                     echo "RResponse: \$RResponse"
-                    if [ "\$RResponse" == "201" ]; then
+                    if [ "\$RResponse" = "201" ]; then
                         echo "Success"
                     else
                         echo " Failed to upload artifact to Nexus"
