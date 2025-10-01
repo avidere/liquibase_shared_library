@@ -1,7 +1,7 @@
 def call (String namespace, String path) {
     try {
         sh """
-         set +xv
+         
          (curl -k \
             -H "X-Vault-Token: \$VAULT_TOKEN" \
             -H "X-Vault-namespace: $namespace" \
