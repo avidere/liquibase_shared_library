@@ -9,7 +9,7 @@ def generateToken(String vaultNS) {
                 "role_id": "${roleID}",
                 "secret_id": "${secretID}"
             }' \
-            ${vaultAddress}/v1/auth/approle/login | jq -r .auth > token.json
+            ${VAULT_ADDR}/v1/auth/approle/login | jq -r .auth > token.json
         """
         }
     def authProps = readJSON file: 'token.json'
