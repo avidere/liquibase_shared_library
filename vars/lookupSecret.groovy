@@ -24,6 +24,7 @@ def call () {
             println "Secret not found in vault"
             url = createJDBC()
             def path = 'kv/data/liquibase/$DBType/$envir/$DB_NAME'
+            println "Secret not found in vault $path"
             vaultWriteCreds.dbUrl(vault_ns, path, url)
             comment = "JDBC url updated in vault\\n\\n"
             sh"echo '[INFO] $comment' >> $successFile"
