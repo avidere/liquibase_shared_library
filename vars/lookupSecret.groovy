@@ -1,6 +1,6 @@
 def call () {
     try {
-        path = "liquibase/$DBType/${envir}"
+        path = "liquibase/Oracle/dev"
         vaultSearchSecret(vault_ns, path)
         checkSecret = sh(returnStdout: true, script: "grep -w ${DB_NAME} secret.txt || true").trim()
         println "Display value of checkSecret"+checkSecret
@@ -20,13 +20,16 @@ def call () {
         }
 
         if (!checkSecret.equals(params.DB_NAME)) {
+
             println "Secret not found in vault"
             url = createJDBC()
             def path = "kv/data/liquibase/$DBType/$envir/$DB_NAME"
             vaultWriteCreds.dbUrl(vault_ns, path, url)
             comment = "JDBC url updated in vault\\n\\n"
             sh"echo '[INFO] $comment' >> $successFile"
+
         } else if (checkSecret.equals(params.DB_NAME) && chekMaterIPCount > "1") {
+            
             println "Multiple IP found for selected Database"
             url = createJDBC()
             def path = "kv/data/liquibase/$DBType/$envir/$DB_NAME"
