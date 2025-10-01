@@ -1,4 +1,4 @@
-def generateToken(String namespace) {
+def generateToken(String vaultNS) {
     withCredentials([
         usernamePassword(credentialsId: 'vaultcred', passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
         sh """
