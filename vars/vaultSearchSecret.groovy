@@ -1,4 +1,4 @@
-def call (String namespace, String path) {
+def call(String namespace, String path) {
     try {
         sh """
          
@@ -7,7 +7,7 @@ def call (String namespace, String path) {
             -H "X-Vault-namespace: $namespace" \
             -H "Content-Type: application/json" \
             -X LIST \
-            $VAULT_ADDR/v1/${path} | jq -r .data.keys[]) > secrets.txt
+            $VAULT_ADDR/v1/kv/Oracle/dev/liquibase_dev01 | jq -r .data.keys[]) > secrets.txt
         """
     } catch (Exception e) {
         def comment = "Failed to serach vault due to exception $e"
