@@ -27,21 +27,21 @@ def dba(String flowfile) {
         sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
 
         comment "$sql_file is deployed successfully on $DB_NAME\\n\\n"
-        sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
+        sh "echo '[INFO]  ${comment}' >> $successFile"
 
         if (ACCESS_REQUEST) {
             comment "$ACCESS_TYPE access for $USER_ID on $DB_NAME\\n\\n"
-            sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
+            sh "echo '[INFO] ${comment}' >> $successFile"
         }
 
         } catch (Exception e) {
         def failed_stage = sh(returnStdout: true, script: "jq -r '(select(.flowFileFailedStage != null) | .flowFileFailedStage)' " + 'liquibase.log | head -1 || true').trim()
         echo "Failed Stage: ${failed_stage}"
         comment = "Liquibase Execution Failed at Stage: ${failed_stage} \\n"
-        sh "echo '[ERROR] $timestamp ${comment}' >> $failFile"
+        sh "echo '[ERROR]  ${comment}' >> $failFile"
 
         comment = "For failure reason chack file errorLog_${BUILD_NUMBER}.txt attached to ticket\\n"
-        sh "echo '[INFO] $timestamp ${comment}' >> $failFile"
+        sh "echo '[INFO]  ${comment}' >> $failFile"
 
         sh """
                 jq -r '(select(.flowFileFailedStage != null) | .flowFileFailedMessage)' \
