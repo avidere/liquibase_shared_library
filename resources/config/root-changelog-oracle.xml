@@ -9,6 +9,8 @@
         <tagDatabase  tag="${REQUEST_NUMBER}-${BUILD_NUMBER}"/>
     </changeSet>
     <changeSet id="$REQUEST_NUMBER-$FILE_FILENAME" author="${DBType}_DBA" runOnChange="true">
+        <comment>Implemented by user: $USERNAME($SSO_ID)</comment>
+        <comment>{ACCESS}</comment>
         <sqlFile path="DBScript/$sql_file"/>
     </changeSet>
 </databaseChangeLog>
