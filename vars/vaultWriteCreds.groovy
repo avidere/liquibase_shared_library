@@ -7,7 +7,7 @@ def dbUrl(String namespace, String path, String url) {
             -H "X-Vault-namespace: $namespace" \
             -H "Content-Type: application/json" \
             -X POST \
-            -d '{ "url": "\'$url\'" }' \
+            -d '{ "data": { "url": "${url}" } }' \
             $VAULT_ADDR/v1/${path}
         """
     } catch (Exception e) {
