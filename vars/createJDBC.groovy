@@ -1,34 +1,33 @@
-def call() {
-    def failFile = "secret.txt"
+def call () {
     try {
-        def JDBCurl = ""
-        def comment = ""
-
         if ("${DBType}" == "MySQL") {
-            def masteraddress = params.MASTER_IP ?: getUserInput.masterIP("Please select Master IP to proceed")
+            def message = "Please select Masterip to proceed"
+            def masteraddress = getUserInput.masterIP(message)
+
             if ("${ENVIRONMENT}" == "PROD") {
-                JDBCurl = sh(returnStdout: true, script: "echo jdbc:mysql://${masteraddress}:30306/${DB_NAME}?useSSL=true").trim()
+                def JDBCurl = sh(returnStdout: true, script: "echo jdbc:mysql://${masteraddress}:30306/${DB_NAME}?useSSL=true || true").trim()
+                println JDBCurl
+                return JDBCurl
             } else {
-                JDBCurl = sh(returnStdout: true, script: "echo jdbc:mysql://${masteraddress}:1521/${DB_NAME}?useSSL=true").trim()
+                def JDBCurl = sh(returnStdout: true, script: "echo jdbc:mysql://${masteraddress}:1521/${DB_NAME}?useSSL=true || true").trim()
+                println JDBCurl
+                return JDBCurl
             }
         } else if ("${DBType}" == "Cassandra") {
-            def inputURL = params.CASSANDRA_JDBC ?: getUserInput.stringValue("Please enter JDBC_URL to create secret (Example: jdbc:cassandra://host:9042/test_db)")
-            JDBCurl = inputURL + "?requesttimeout=10000&compliancemode=Liquibase&localdatacenter=DAL&enablessl=true"
+            def message = "Please  enter JDBC_URL to create secret (Example: jdbc://cassandra://host:9042/test_db)"
+            def JDBCurl = getUserInput.stringValue(message).concat("?requesttimeout=10000'&compliancemode=Liquibase&localdatacenter=DAL&enablessl=true'")
+            println JDBCurl
+            return JDBCurl
         } else {
-            JDBCurl = params.JDBC_URL ?: getUserInput.stringValue("Please enter the JDBC URL")
+            def message = "Please enter the JDBC URL"
+            def JDBCurl = getUserInput.stringValue(message)
+            println JDBCurl
+            return JDBCurl
         }
-
-        println "Created JDBC URL: ${JDBCurl}"
-        return JDBCurl
-
-    } catch (e) {
-        def comment = "Failed to create JDBC URL due to exception: ${e.message}"
-        println comment
-        // Safely write to failFile
-        sh """#!/bin/sh
-echo "[ERROR] ${comment}" >> ${failFile}
-"""
+    } catch(e) {
+        comment = "Failed to create JDBC URL due to exception $e\\n\\n"
+        sh"echo ['ERROR'] $comment' >> $failFile"
         currentBuild.result = "FAILURE"
-        error("Pipeline failed due to: ${e.message}")
+        error(e)
     }
 }
