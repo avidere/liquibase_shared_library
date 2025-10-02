@@ -61,7 +61,7 @@ def call () {
                             def accessmessage = "<a></ href='${accessurl}'>"
                             timeout(time: 30, unit: "MINUTES") {
                                 input(
-                                    id: 'Deploy'
+                                    id: 'Deploy',
                                     message: "\033[1;32m Access Request is selected as NO, but access related statements found in script. \\nReview the script and abort the pipeline if there are access related statements and re-trigger the build by selecting Access Request as Yes.\\nApprove to contine the build if no access related statements are present and finding is false.: ${accessmessage}\033[0m",
                                     ok: 'Approve')
                                 comment = "Access Request is selected as NO, but access related statements found in script. \\nReview the script and abort the pipeline if there are access related statements and re-trigger the build by selecting Access Request as Yes.\\nApprove to contine the build if no access related statements are present and finding is false.\\n\\n"
