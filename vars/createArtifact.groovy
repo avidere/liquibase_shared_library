@@ -26,7 +26,7 @@ def call() {
 def dba() {
     try {
         sh '''
-            zip -r ${WORKSPACE}/${REQUEST_NUMBER}-'''+BUILD_NUMBER+'''.zip . -x '*.yaml*' -x '*.conf*' -x '*.txt* -x '*.properties*' -x 'config/*' -x '.scannerwork/*'
+            zip -r ${WORKSPACE}/${REQUEST_NUMBER}-'''+BUILD_NUMBER+'''.zip . -x '*.yaml*' -x '*.conf*' -x '*.txt*' -x '*.properties*' -x 'config/*' -x '.scannerwork/*'
 
         '''
     } catch (Exception e) {
