@@ -16,7 +16,7 @@ def call() {
 
     //liquibase related env variables
     if (params.CHANELOG_FILE != null) {
-        env.changelog = params.CHANELOG_LOG
+        env.changelog = params.CHANGE_LOG
     }
 
     if (params.ENVIRONMENT != null) {
