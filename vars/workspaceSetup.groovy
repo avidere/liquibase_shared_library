@@ -26,7 +26,7 @@ def call () {
                     mv liquibase.properties config/${envir}/liquibase.properties
                """
 
-        def consoleOutput = currentBuild.getBuildCause()
+        def consoleOutput = currentBuild.getBuildCauses()
         env.SSOID = (consoleOutput =~ /userId:(\d+)/)[0][1]
         env.USERNAME = (consoleOutput =~ /username:\s*([^(]*)/)[0][1]
 
