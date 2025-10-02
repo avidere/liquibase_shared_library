@@ -22,3 +22,19 @@ def call() {
         currentBuild.result = 'FAILURE'
     }
 }
+
+def dba() {
+    try {
+        sh '''
+            zip -r ${WORKSPACE}/${REQUEST_NUMBER}-'''+BUILD_NUMBER+'''.zip . -x '*.yaml*' -x '*.conf*' -x '*.txt* -x '*.properties*' -x 'config/*' -x '.scannerwork/*'
+
+        '''
+
+    } catch (exception e) {
+        comment = "Artifact creation failed due to exception $e"
+        sh"echo '[ERROR] $comment ' >> $failFile"
+        echo "Error: An exception occured during the zip workspace stage"
+        currentBuild.result = "FAILURE"
+        error(e)
+    }
+}

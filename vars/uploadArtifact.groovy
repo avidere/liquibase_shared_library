@@ -1,3 +1,41 @@
+def dba () {
+    try {
+        def artifactName = "${artifact}-${BUILD_NUMBER}"
+        withCredentials([usernamePassword(credentialsId: NexusCreds, passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
+            if (JOB_NAME.contains("DBA")) {
+                foldername = "DBAReleases"
+            } else if (JOB_NAME.contains("DARE")) {
+                foldername = "DAREReleases"
+            }
+
+            sh(
+                script: """
+                    set -x
+
+                    RResponse=\$(curl -v -u ${USER}:${PASSWORD} --upload-file ${artifactName}.zip ${nexusurl}//${foldername}/${DBType}/${envir}/${artifactName}.zip -s -o /dev/null -w "%{http_code}")
+                    echo "RResponse: \$RResponse"
+                    if [ "\$RResponse" = "201" ]; then
+                        echo "Success"
+                    else
+                        echo " Failed to upload Artifact to nexus"
+                        exit 1;
+                    fi
+                """
+
+            )
+        }
+
+        echo "Artifact has been uploaded to nexus Successfully"
+        comment = "Artifact has been uploaded to nexus Successfully.\\n\\n"
+        sh"echo '[INFO] $comment' >> $successFile"
+    } catch (exception e) {
+        echo "Error: An exception Ocuured during the upload to nexus stage"
+        comment = "$e\\n\\n"
+        sh"echo '[ERROR] $comment' >> $failFile"
+        error("Upload to Nexus failed")
+        currentBuild.result = 'FAILURE'
+    }
+}
 def artifactupload() {
     try {
         def artifactName = "${artifact}-${BUILD_NUMBER}"
@@ -5,7 +43,7 @@ def artifactupload() {
             sh(
                 script: """
                     set -x
-                    
+
                     RResponse=\$(curl -v -u ${USER}:${PASSWORD} --upload-file ${artifactName}.zip ${uploadUrl}/${artifactName}.zip -s -o /dev/null -w "%{http_code}")
                     echo "RResponse: \$RResponse"
                     if [ "\$RResponse" = "201" ]; then
