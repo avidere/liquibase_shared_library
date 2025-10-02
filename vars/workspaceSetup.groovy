@@ -17,7 +17,7 @@ def call () {
             writeFile file: 'root-changelog.xml', text: rootchange
         }
 
-            sh """
+        sh """
                     set +xv
                     envsubst < config/liquibase.properties > liquibase_updated.properties
                     mv config/liquibase.properties liquibase.properties_from_source
@@ -26,14 +26,14 @@ def call () {
                     mv liquibase.properties config/${envir}/liquibase.properties
                """
 
-               def consoleOutput = currentBuild.getBuildCause()
-               env.SSOID = (consoleOutput =~ /userId:(\d+)/)[0][1]
-               env.USERNAME = (consoleOutput =~ /username:\s*([^(]*)/)[0][1]
+        def consoleOutput = currentBuild.getBuildCause()
+        env.SSOID = (consoleOutput =~ /userId:(\d+)/)[0][1]
+        env.USERNAME = (consoleOutput =~ /username:\s*([^(]*)/)[0][1]
 
-               echo "SSOID: ${SSOID}"
-               echo "USERNAME: ${USERNAME}"
+        echo "SSOID: ${SSOID}"
+        echo "USERNAME: ${USERNAME}"
 
-               withFileParameter('FILE') {
+        withFileParameter('FILE') {
                 liquibasesqlfile = sh(returnStdout: true, script: "echo $FILE_FILENAME | grep -oP '^[^.]+' || true").trim()
                 env.sql_file = FILE_FILENAME
                 sh """
@@ -70,8 +70,8 @@ def call () {
                                 sh"echo '[INFO] $comment' >> $failFile"
                             }
                         }
-                    }
-               }
+                }
+        }
     } catch(Exception e) {
         comment = "Workspace setup failed with exception $e\\n\\n"
         sh"echo '[ERROR] $comment' >> $failFile"
