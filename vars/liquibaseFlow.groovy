@@ -18,11 +18,10 @@ def dba(String flowfile) {
             env.LIQUIBASE_REPORTS_ENABLED = "true"
         }
 
-        sh '''
-                liquibase --defaultsFile=config/liquibase.properties flow --flowfile=flowfile.yaml --output-file=output.txt --log-file=liquibase.log
-            '''
+        sh """
+                liquibase --defaultsFile=${liquibasePropFile} flow --flowfile=flowfile.yaml --output-file=output.txt --log-file=liquibase.log
+            """
 
-                    
         def timestamp = new Date().format("yyyy-MM-dd'T'HH:mm:ss.SSSZ", TimeZone.getTimeZone('UTC'))
         comment = "Liquibase Execution is Successful for ${REQUEST_TYPE} workflow\\n\\n"
         sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
