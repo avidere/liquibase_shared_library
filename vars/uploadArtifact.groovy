@@ -1,6 +1,6 @@
 def dba () {
     try {
-        def artifactName = "${artifact}-${BUILD_NUMBER}"
+        def artifactName = "${REQUEST_NUMBER}-${BUILD_NUMBER}"
         withCredentials([usernamePassword(credentialsId: NexusCreds, passwordVariable: 'PASSWORD', usernameVariable: 'USER')]) {
             if (JOB_NAME.contains("DBA")) {
                 foldername = "DBAReleases"
@@ -12,7 +12,7 @@ def dba () {
                 script: """
                     set -x
 
-                    RResponse=\$(curl -v -u ${USER}:${PASSWORD} --upload-file ${artifactName}.zip ${nexusurl}//${foldername}/${DBType}/${envir}/${artifactName}.zip -s -o /dev/null -w "%{http_code}")
+                    RResponse=\$(curl -v -u ${USER}:${PASSWORD} --upload-file ${artifactName}.zip ${nexusurl}/${foldername}/${DBType}/${envir}/${artifactName}.zip -s -o /dev/null -w "%{http_code}")
                     echo "RResponse: \$RResponse"
                     if [ "\$RResponse" = "201" ]; then
                         echo "Success"
