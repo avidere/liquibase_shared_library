@@ -19,9 +19,9 @@ def call () {
 
         sh """
                     set +xv
-                    envsubst < config/liquibase.properties > liquibase_updated.properties
-                    mv config/liquibase.properties liquibase.properties_from_source
-                    mv liquibase_updated.properties config/liquibase.properties
+                    envsubst < liquibase.properties > liquibase_updated.properties
+                    mv liquibase.properties liquibase.properties_from_source
+                    mv liquibase_updated.properties liquibase.properties
                     mkdir -p config/${envir}
                     mv liquibase.properties config/${envir}/liquibase.properties
                """
