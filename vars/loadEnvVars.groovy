@@ -15,7 +15,7 @@ def call() {
     env.VAULT_ADDR = props['VAULT_ADDR']
 
     //liquibase related env variables
-    if (params.CHANELOG_FILE != null) {
+    if (params.CHANGE_LOG != null) {
         env.changelog = params.CHANGE_LOG
     }
 
