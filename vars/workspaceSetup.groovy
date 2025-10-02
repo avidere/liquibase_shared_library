@@ -6,7 +6,7 @@ def call () {
         def liquibasesqlconf = liquibaseResource "config/check_conf/liquibase.checks-execute-sql.conf"
         writeFile file: 'liquibase.checks-execute-sql.conf', text: liquibasesqlconf
 
-        liquibaseconf = liquibaseResource "config/checks_conf/liquibase.${DBType}-checks-settings.conf"
+        def liquibaseconf = liquibaseResource "config/checks_conf/liquibase.${DBType}-checks-settings.conf"
         writeFile file: 'liquibase.checks.settings.conf', text: liquibaseconf
 
         if("${DBType}" == "Oracle") {
