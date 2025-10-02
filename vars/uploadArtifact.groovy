@@ -28,7 +28,7 @@ def dba () {
         echo "Artifact has been uploaded to nexus Successfully"
         comment = "Artifact has been uploaded to nexus Successfully.\\n\\n"
         sh"echo '[INFO] $comment' >> $successFile"
-    } catch (exception e) {
+    } catch (Exception e) {
         echo "Error: An exception Ocuured during the upload to nexus stage"
         comment = "$e\\n\\n"
         sh"echo '[ERROR] $comment' >> $failFile"
