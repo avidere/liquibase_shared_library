@@ -21,13 +21,21 @@ def call() {
 
     if (params.ENVIRONMENT != null) {
         env.envir = params.ENVIRONMENT
+    } else if (params.ENVIRONMENT == null & groupId == 'common') {
+        env.envir = qa
+    } else {
+        env.envir = groupId
     }
+
+    env.liquibasePropFile = "config" + envir + "/liquibase.properties"
+
+    env.dbCredID = projKey + "-" + gitRepo + "-" + envir
 
     //servicenow related ENV variable
     env.HttpProxy = props['HTTP_PROXY']
 
     env.SNApi = props['SN_API']
-
+ 
     env.SNAPiupload = props['SN_API_UPLOAD']
 
     env.ServiceNow = creds['ServiceNow']
