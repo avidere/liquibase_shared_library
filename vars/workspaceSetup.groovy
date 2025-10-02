@@ -42,8 +42,8 @@ def call () {
                     cp $FILE DBScript/"${liquibasesqlfile}.sql"
                     ls -l DBScript
 
-                    if [$ACCESS_REQUEST == 'true' ]
-                    then 
+                    if [ $ACCESS_REQUEST == 'true' ]
+                    then
                         sed -i "s/{ACCESS}/ACCESS_REQUEST : $ACCESS_TYPE access for $USER_ID on $DB_Name/g" $changelog
                     else
                         sed -i "s/{ACCESS}//g" $changelog
@@ -56,9 +56,9 @@ def call () {
 
                 if ("${REQUEST_TYPE}" == "DEPLOYMENT") {
                     captureFile = sh(returnStdout: true, script: "cat DBScript/${liquibasesqlfile}.sql | grep -w -Ei 'grant|lock|revoke|create user|alter user|drop user|flush|delete user|update user'|| true").trim()
-                        
+
                         if (captureFile.toLowerCase() != "" & "${ACCESS_REQUEST}" != 'true' ) {
-                            def accessurl = "${JOB_URL}${BUILD_NIMBER}/execution/node/10/ws/updatesql.txt"
+                            def accessurl = "${JOB_URL}${BUILD_NUMBER}/execution/node/10/ws/updatesql.txt"
                             def accessmessage = "<a></ href='${accessurl}'>"
                             timeout(time: 30, unit: "MINUTES") {
                                 input(
