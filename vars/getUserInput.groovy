@@ -6,7 +6,8 @@ def stringValue(String message) {
                 id: 'userInput',
                 message: "${message}",
                 parameters: [String(name: 'USER_INPUT')]).trim()
-        } return userInput
+        } 
+        return userInput
     } catch (Exception e) {
         comment "Failed to get user input due to exception $e\\n\\n"
         sh"echo '[ERROR] $comment ' >> $failFile"
