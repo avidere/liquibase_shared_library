@@ -27,7 +27,7 @@ def call() {
         env.envir = groupId
     }
 
-    env.liquibasePropFile = "config" + envir + "/liquibase.properties"
+    env.liquibasePropFile = "config/" + envir + "/liquibase.properties"
 
     env.dbCredID = projKey + "-" + gitRepo + "-" + envir
 
