@@ -1,6 +1,6 @@
 def call () {
     try {
-        path = "kv/data/Oracle/dev/liquibase_dev01"
+        path = "liquibase/${DBType}/${envir}"
         vaultSearchSecret(vault_ns, path)
         checkSecret = sh(returnStdout: true, script: "grep -w ${DB_NAME} secret.txt || true").trim()
         println "Display value of checkSecret"+checkSecret
