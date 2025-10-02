@@ -26,11 +26,11 @@ def dba(String flowfile) {
         comment = "Liquibase Execution is Successful for ${REQUEST_TYPE} workflow\\n\\n"
         sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
 
-        comment ="$sql_file is deployed successfully on $DB_NAME\\n\\n"
+        comment = "$sql_file is deployed successfully on $DB_NAME\\n\\n"
         sh "echo '[INFO]  ${comment}' >> $successFile"
 
         if (ACCESS_REQUEST) {
-            comment "$ACCESS_TYPE access for $USER_ID on $DB_NAME\\n\\n"
+            comment = "$ACCESS_TYPE access for $USER_ID on $DB_NAME\\n\\n"
             sh "echo '[INFO] ${comment}' >> $successFile"
         }
 
@@ -44,9 +44,9 @@ def dba(String flowfile) {
         sh "echo '[INFO]  ${comment}' >> $failFile"
 
         sh """
-                jq -r '(select(.flowFileFailedStage != null) | .flowFileFailedMessage)' \
-                    liquibase.log > errorLog_${BUILD_NUMBER}.txt "
-                """
+                    jq -r '(select(.flowFileFailedStage != null) | .flowFileFailedMessage)' \
+                        liquibase.log > errorLog_${BUILD_NUMBER}.txt "
+                    """
         liquibaseReportUpload.errorLog()
         currentBuild.result = 'FAILURE'
         error(e)
