@@ -26,11 +26,11 @@ def dba(String flowfile) {
         comment = "Liquibase Execution is Successful for ${REQUEST_TYPE} workflow\\n\\n"
         sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
 
-        comment "$sql_file is deployed successfully on $DB_Name\\n\\n"
+        comment "$sql_file is deployed successfully on $DB_NAME\\n\\n"
         sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
 
         if (ACCESS_REQUEST) {
-            comment "$ACCESS_TYPE access for $USER_ID on $DB_Name\\n\\n"
+            comment "$ACCESS_TYPE access for $USER_ID on $DB_NAME\\n\\n"
             sh "echo '[INFO] $timestamp ${comment}' >> $successFile"
         }
 
