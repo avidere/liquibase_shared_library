@@ -1,0 +1,34 @@
+globalVariables:
+    CR: ${CR:-null}
+stages:
+  validation:
+    actions:
+      - type: liquibase
+        command: validate
+        cmdArgs: { verbose: true, changeLogFile: "${changelog}" }
+        
+  status:
+    actions:
+      - type: liquibase
+        command: status
+        cmdArgs: { changeLogFile: "${changelog}", pro-global-strip-comments: "false", force-on-partial-changes: "true", rollback-on-error: "true" }
+
+  Release:
+    actions:
+      - type: liquibase
+        command: release-locks
+        cmdArgs: { verbose: true, changeLogFile: "${changelog}" }
+
+  update:
+    actions:
+      - type: liquibase
+        command: update
+        globalArgs: { pro-global-strip-comments: "false" }
+        cmdArgs: { verbose: true, changeLogFile: "${changelog}"}
+        
+
+endStage:
+    actions:
+      - type: liquibase
+        command: history
+        cmdArgs: { changeLogFile: "${changelog}" }

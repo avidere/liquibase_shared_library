@@ -1,0 +1,21 @@
+globalVariables:
+    CR: ${CR:-null}
+stages:
+  validation:
+    actions: 
+      - type: liquibase
+        command: validate
+        cmdArgs: { changeLogFile: "${changelog}" }
+
+
+  checks:
+    actions:
+      - type: liquibase
+        command: checks-run
+        cmdArgs: { verbose: true, changeLogFile: "${changelog}", checks-settings-file: "liquibase.checks-execute-sql.conf" }
+        
+  Execute-sql:
+    actions:
+      - type: liquibase
+        command: execute-sql
+        cmdArgs: { sql-files: "${WORKSPACE}/DBScript/${sql_file}", changeLogFile: "${changelog}" }
