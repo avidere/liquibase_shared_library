@@ -8,7 +8,7 @@
     <changeSet  author="${DBType}_DBA"  id="${BUILD_NUMBER}" runOnChange="true">
         <tagDatabase  tag="${REQUEST_NUMBER}-${BUILD_NUMBER}"/>
     </changeSet>
-    <changeSet id="$REQUEST_NUMBER-FILE_FILENAME" author="${DBType}_DBA" runOnChange="true">
+    <changeSet id="$REQUEST_NUMBER-$FILE_FILENAME" author="${DBType}_DBA" runOnChange="true">
         <sqlFile path="DBScript/$sql_file"/>
     </changeSet>
 </databaseChangeLog>
