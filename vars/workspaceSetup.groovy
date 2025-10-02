@@ -1,19 +1,19 @@
 def call () {
     try {
-        def liquibaseproperty = liquibaseResource "config/liquibase_props/${DBType}_liquibase.properties"
+        def liquibaseproperty = libraryResource "config/liquibase_props/${DBType}_liquibase.properties"
         writeFile file: 'liquibase.properties', text: liquibaseproperty
 
-        def liquibasesqlconf = liquibaseResource "config/check_conf/liquibase.checks-execute-sql.conf"
+        def liquibasesqlconf = libraryResource "config/check_conf/liquibase.checks-execute-sql.conf"
         writeFile file: 'liquibase.checks-execute-sql.conf', text: liquibasesqlconf
 
-        def liquibaseconf = liquibaseResource "config/checks_conf/liquibase.${DBType}-checks-settings.conf"
+        def liquibaseconf = libraryResource "config/checks_conf/liquibase.${DBType}-checks-settings.conf"
         writeFile file: 'liquibase.checks.settings.conf', text: liquibaseconf
 
         if("${DBType}" == "Oracle") {
-            def rootchange = liquibaseResource "config/root-changelog-oracle.xml"
+            def rootchange = libraryResource "config/root-changelog-oracle.xml"
             writeFile file: 'root-changelog.xml', text: rootchange
         } else {
-            def rootchange = liquibaseResource "config/root-changelog.xml"
+            def rootchange = libraryResource "config/root-changelog.xml"
             writeFile file: 'root-changelog.xml', text: rootchange
         }
 
