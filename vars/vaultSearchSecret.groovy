@@ -6,7 +6,7 @@ def call(String namespace, String path) {
             -H "X-Vault-Namespace: $namespace" \
             -X LIST \
             $VAULT_ADDR/v1/kv/metadata/${path}\
-            | jq -r '.data.keys[]') > secrets.txt
+            | jq -r '.data.keys[]') > secret.txt
             """
     } catch (Exception e) {
         def comment = "Failed to serach vault due to exception $e"
