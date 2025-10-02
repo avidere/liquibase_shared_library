@@ -29,7 +29,7 @@ def dba(String flowfile) {
         comment ="$sql_file is deployed successfully on $DB_NAME\\n\\n"
         sh "echo '[INFO]  ${comment}' >> $successFile"
 
-        if ("${ACCESS_REQUEST}") {
+        if (ACCESS_REQUEST) {
             comment "$ACCESS_TYPE access for $USER_ID on $DB_NAME\\n\\n"
             sh "echo '[INFO] ${comment}' >> $successFile"
         }
