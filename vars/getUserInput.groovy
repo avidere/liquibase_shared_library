@@ -5,13 +5,14 @@ def stringValue(String message) {
             userInput = input(
                 id: 'userInput',
                 message: "${message}",
-                parameters: [String(name: 'USER_INPUT')]).trim()
-        } 
+                parameters: [string(name: 'USER_INPUT')]
+            ).trim()
+        }
         return userInput
     } catch (Exception e) {
-        comment "Failed to get user input due to exception $e\\n\\n"
-        sh"echo '[ERROR] $comment ' >> $failFile"
+        def comment = "Failed to get user input due to exception: ${e}"
+        echo "[ERROR] ${comment}"  // use echo to log errors
         currentBuild.result = "FAILURE"
-
+        return null
     }
 }
