@@ -3,7 +3,7 @@ def call () {
         def liquibaseproperty = libraryResource "config/liquibase_props/${DBType}_liquibase.properties"
         writeFile file: 'liquibase.properties', text: liquibaseproperty
 
-        def liquibasesqlconf = libraryResource "config/check_conf/liquibase.checks-execute-sql.conf"
+        def liquibasesqlconf = libraryResource "config/checks_conf/liquibase.checks-execute-sql.conf"
         writeFile file: 'liquibase.checks-execute-sql.conf', text: liquibasesqlconf
 
         def liquibaseconf = libraryResource "config/checks_conf/liquibase.${DBType}-checks-settings.conf"
