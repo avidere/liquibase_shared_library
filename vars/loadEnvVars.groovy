@@ -14,6 +14,7 @@ def call() {
     env.vaultcred = creds['vaultcred']
     env.VAULT_ADDR = props['VAULT_ADDR']
 
+
     //liquibase related env variables
     if (params.CHANGE_LOG != null) {
         env.changelog = params.CHANGE_LOG
