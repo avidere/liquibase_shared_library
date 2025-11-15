@@ -22,41 +22,40 @@ def call() {
 
 def mysql() {
 
-    // Run curl and save RAW response
-    sh """
-        echo "----- RAW VAULT RESPONSE START -----"
-        
-        curl -sk \
-        -H "X-Vault-Namespace: ${namespace}" \
-        -H "X-Vault-Token: ${VAULT_TOKEN}" \
-        -H "Content-Type: application/json" \
-        --request POST \
-        --data '{
-            "plugin_name": "mysql-database-plugin",
-            "connection_url": "{{username}}:{{password}}@tcp(${GLOBAL_ENDPOINT})/",
-            "username": "${username}",
-            "password": "${password}",
-            "max_open_connections": 4,
-            "max_idle_connections": 0,
-            "max_connection_lifetime": "0s"
-        }' \
-        ${VAULT_ADDR}/v1/database/config/${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}_${username} \
-        | tee curl_raw_output.txt
+    // Run curl and store response in variable
+    def response = sh(
+        script: """
+            curl -sk \
+            -H "X-Vault-Namespace: ${namespace}" \
+            -H "X-Vault-Token: ${VAULT_TOKEN}" \
+            -H "Content-Type: application/json" \
+            --request POST \
+            --data '{
+                "plugin_name": "mysql-database-plugin",
+                "connection_url": "{{username}}:{{password}}@tcp(${GLOBAL_ENDPOINT})/",
+                "username": "${username}",
+                "password": "${password}",
+                "max_open_connections": 4,
+                "max_idle_connections": 0,
+                "max_connection_lifetime": "0s"
+            }' \
+            ${VAULT_ADDR}/v1/database/config/${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}_${username}
+        """,
+        returnStdout: true
+    ).trim()
 
-        echo "----- RAW VAULT RESPONSE END -----"
-    """
+    echo "RAW VAULT RESPONSE: ${response}"
 
-    // Show raw response
-    sh "cat curl_raw_output.txt"
+    // If empty → fail with clear message
+    if (!response || response.trim() == "") {
+        error("Vault returned EMPTY response")
+    }
 
-    // If JSON is empty or invalid, fail early
-    sh """
-        if ! jq -e . curl_raw_output.txt > mysql_config_out.json; then
-            echo "Vault returned invalid JSON. Printing raw output:"
-            cat curl_raw_output.txt
-            exit 1
-        fi
-    """
-
-    return readJSON(file: "mysql_config_out.json")
+    // Try parsing JSON safely
+    try {
+        def parsed = readJSON text: response
+        return parsed
+    } catch (Exception e) {
+        error("Vault returned INVALID JSON:\n${response}")
+    }
 }
