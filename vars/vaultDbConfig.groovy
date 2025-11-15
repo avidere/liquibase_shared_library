@@ -1,4 +1,4 @@
-def call(String namespace, String path, String user, String pass) {
+def call() {
     sh """
         curl -sk \
         -H "X-Vault-Namespace: $namespace" \
