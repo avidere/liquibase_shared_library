@@ -7,7 +7,7 @@ def createStaticRole(String namespace, String path, String user, String pass) {
         -H "Content-Type: application/json" \
         --request POST \
         --data '{
-            "db_name": "mysqldev-db",
+            "db_name": "${DB_NAME}",
             "username": "${username}",
             "rotation_statements": "ALTER USER \`${username}\`@\"%\" IDENTIFIED BY '{{password}}';"
         }' \
