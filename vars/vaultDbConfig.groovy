@@ -9,7 +9,7 @@ def call() {
             "plugin_name": "mysql-database-plugin",
             "connection_url": "{{username}}:{{password}}@tcp(${GLOBAL_ENDPOINT})/",
             "username": "${username}",
-            "password": "${username}",
+            "password": "${password}",
             "max_open_connections": 4,
             "max_idle_connections": 0,
             "max_connection_lifetime": "0s"
