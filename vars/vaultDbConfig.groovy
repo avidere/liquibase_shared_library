@@ -1,6 +1,6 @@
 def call() {
     sh """
-        curl -sk \
+        curl -sk --fail\
         -H "X-Vault-Namespace: $namespace" \
         -H "X-Vault-Token: $VAULT_TOKEN" \
         -H "Content-Type: application/json" \
