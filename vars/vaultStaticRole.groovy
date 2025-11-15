@@ -1,17 +1,21 @@
-def createStaticRole(String namespace, String path, String user, String pass) {
+def call(String namespace, String path, String user, String pass) {
 
     sh """
         curl -sk \
-        -H "X-Vault-Namespace: $namespace" \
-        -H "X-Vault-Token: $VAULT_TOKEN"" \
+        -H "X-Vault-Namespace: admin" \
+        -H "X-Vault-Token: $VAULT_TOKEN" \
         -H "Content-Type: application/json" \
         --request POST \
         --data '{
-            "db_name": "${DB_NAME}",
-            "username": "${username}",
-            "rotation_statements": "ALTER USER \`${username}\`@\"%\" IDENTIFIED BY '{{password}}';"
+            "db_name": "503027034_654654373515_aurora_demo-mysql-db_admin",
+            "rotation_statements": [
+                "ALTER USER `admin`@`%` IDENTIFIED BY \"{{password}}\";"
+            ],
+            "username": "admin",
+            "password": "8F8%?YbhSDp?uQOw"
         }' \
-        ${VAULT_ADDR}/v1/admin/database/static-roles/mysqldev-static | jq -r . > static_role_out.json
+        $VAULT_ADDR/v1/database/static-roles/aurora_demo-mysql-db_admin
+
     """
 
     return readJSON(file: "static_role_out.json")
