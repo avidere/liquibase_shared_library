@@ -1,5 +1,4 @@
-def mysql(String namespace, String path, String user, String pass) {
-
+def call(String namespace, String path, String user, String pass) {
     sh """
         curl -sk \
         -H "X-Vault-Namespace: $namespace" \
