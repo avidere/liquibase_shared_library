@@ -14,7 +14,7 @@ def call() {
             "max_idle_connections": 0,
             "max_connection_lifetime": "0s"
         }' \
-        ${VAULT_ADDR}/v1/admin/database/config/${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}_${username} | jq -r . > mysql_config_out.json
+        ${VAULT_ADDR}/v1/database/config/${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}_${username} | jq -r . > mysql_config_out.json
     """
 
     return readJSON(file: "mysql_config_out.json")
