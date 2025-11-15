@@ -55,13 +55,13 @@ def call() {
 
     env. nexusUrl = "${nexusHost}/repository/${Nexus_Liquibase_repo}"
 
-    env.groupId = params.ARTIFACT_GROUP
+    // env.groupId = params.ARTIFACT_GROUP
 
-    env.uploadUrl = "${nexusUrl}/${projKey}/${gitRepo}/${groupId}"
+    // env.uploadUrl = "${nexusUrl}/${projKey}/${gitRepo}/${groupId}"
 
-    env.groupName = "${projKey}/${gitRepo}/${groupId}"
+    // env.groupName = "${projKey}/${gitRepo}/${groupId}"
 
-    env.artifact = "${projKey}-${gitRepo}-${groupId}"
+    // env.artifact = "${projKey}-${gitRepo}-${groupId}"
 
     env.CurrentDate = "${new Date()}"
 
