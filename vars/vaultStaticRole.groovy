@@ -1,4 +1,4 @@
-def call(String namespace, String path, String user, String pass) {
+def call() {
 
     sh """
         curl -sk \
@@ -17,6 +17,4 @@ def call(String namespace, String path, String user, String pass) {
         $VAULT_ADDR/v1/database/static-roles/aurora_demo-mysql-db_admin
 
     """
-
-    return readJSON(file: "static_role_out.json")
 }
