@@ -7,7 +7,7 @@ def call() {
         --request POST \
         --data '{
             "plugin_name": "mysql-database-plugin",
-            "connection_url": "{{username}}:{{password}}@tcp(${endpoint}:${port})/",
+            "connection_url": "{{username}}:{{password}}@tcp(${endpoint})/",
             "username": "${username}",
             "password": "${username}",
             "max_open_connections": 4,
