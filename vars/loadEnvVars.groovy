@@ -15,22 +15,22 @@ def call() {
     env.VAULT_ADDR = props['VAULT_ADDR']
 
 
-    // //liquibase related env variables
-    // if (params.CHANGE_LOG != null) {
-    //     env.changelog = params.CHANGE_LOG
-    // }
+    //liquibase related env variables
+    if (params.CHANGE_LOG != null) {
+        env.changelog = params.CHANGE_LOG
+    }
 
-    // if (params.ENVIRONMENT != null) {
-    //     env.envir = params.ENVIRONMENT
-    // } else if (params.ENVIRONMENT == null & groupId == 'common') {
-    //     env.envir = qa
-    // } else {
-    //     env.envir = groupId
-    // }
+    if (params.ENVIRONMENT != null) {
+        env.envir = params.ENVIRONMENT
+    } else if (params.ENVIRONMENT == null & groupId == 'common') {
+        env.envir = qa
+    } else {
+        env.envir = groupId
+    }
 
-    // env.liquibasePropFile = "config/" + envir + "/liquibase.properties"
+    env.liquibasePropFile = "config/" + envir + "/liquibase.properties"
 
-    // env.dbCredID = projKey + "-" + gitRepo + "-" + envir
+    env.dbCredID = projKey + "-" + gitRepo + "-" + envir
 
     //servicenow related ENV variable
     env.HttpProxy = props['HTTP_PROXY']
@@ -55,20 +55,20 @@ def call() {
 
     env. nexusUrl = "${nexusHost}/repository/${Nexus_Liquibase_repo}"
 
-    // if (params.ARTIFACT_GROUP != null) {
-    // env.groupId = params.ARTIFACT_GROUP
+    if (params.ARTIFACT_GROUP != null) {
+    env.groupId = params.ARTIFACT_GROUP
 
-    // env.uploadUrl = "${nexusUrl}/${projKey}/${gitRepo}/${groupId}"
+    env.uploadUrl = "${nexusUrl}/${projKey}/${gitRepo}/${groupId}"
 
-    // env.groupName = "${projKey}/${gitRepo}/${groupId}"
+    env.groupName = "${projKey}/${gitRepo}/${groupId}"
 
-    // env.artifact = "${projKey}-${gitRepo}-${groupId}"
-    // }
-    // env.CurrentDate = "${new Date()}"
+    env.artifact = "${projKey}-${gitRepo}-${groupId}"
+    }
+    env.CurrentDate = "${new Date()}"
 
-    // env.successFile = 'Success_PipelineSummary.txt'
+    env.successFile = 'Success_PipelineSummary.txt'
 
-    // env.failFile = 'Failure_PipelineSummary.txt'
+    env.failFile = 'Failure_PipelineSummary.txt'
 
-    //env.BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + ' / ' + currentBuild.getBuildCauses()[0].userId
+    env.BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + ' / ' + currentBuild.getBuildCauses()[0].userId
 }
