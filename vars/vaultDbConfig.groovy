@@ -1,4 +1,4 @@
-def mysql(){
+def call{
     sh 'echo "TOKEN VALUE: $VAULT_TOKEN"'
     sh 'echo "NAMESPACE: $namespace"'
     sh 'echo "PATH: $path"'
