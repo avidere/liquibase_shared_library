@@ -53,8 +53,8 @@ def postgresql(){
             -H "Content-Type: application/json" \
             --request POST \
             --data '{
-                "plugin_name": "vault-plugin-database-oracle",
-                "connection_url": "{{username}}:{{password}}@//${GLOBAL_ENDPOINT}:${PORT}/${DB_NAME}",
+                "plugin_name": "postgresql-database-plugin",
+                "connection_url": "postgresql://{{username}}:{{password}}@${GLOBAL_ENDPOINT}:${PORT}/${DB_NAME}?sslmode=require",
                 "username": "${master_user}",
                 "password": "${master_pass}",
                 "allowed_roles":"${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}_liquibase_deploy_role, ${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}_liquibase_dare_role, ${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}_liquibase_dba_role",
