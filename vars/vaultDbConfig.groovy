@@ -1,4 +1,7 @@
 def mysql(){
+    sh 'echo "TOKEN VALUE: $VAULT_TOKEN"'
+    sh 'echo "NAMESPACE: $namespace"'
+    sh 'echo "PATH: $path"'
     sh """
              curl -sk \
             -H "X-Vault-Namespace: $namespace" \
