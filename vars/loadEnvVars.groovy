@@ -20,9 +20,10 @@ def call() {
         env.changelog = params.CHANGE_LOG
     }
 
-    // if (params.ENVIRONMENT != null) {
-    //     env.envir = params.ENVIRONMENT
-    // } else if (params.ENVIRONMENT == null & groupId == 'common') {
+    if (params.ENVIRONMENT != null) {
+        env.envir = params.ENVIRONMENT
+    } 
+    // else if (params.ENVIRONMENT == null & groupId == 'common') {
     //     env.envir = qa
     // } else {
     //     env.envir = groupId
