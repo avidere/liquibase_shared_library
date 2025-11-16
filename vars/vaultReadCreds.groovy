@@ -3,7 +3,7 @@ def usernamePassword(){
         curl \
         -H "X-Vault-Token: ${VAULT_TOKEN}" \
         -H "X-Vault-Namespace: ${namespace}" \
-        $VAULT_ADDR/v1/secret/data/rds/mysqldev | jq -r .data.data > credentials.json
+        $VAULT_ADDR/v1/${path} | jq -r .data.data > credentials.json
     """
     def credProps = readJSON file: 'credentials.json'
     

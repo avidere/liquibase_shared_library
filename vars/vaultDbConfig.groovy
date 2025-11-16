@@ -1,10 +1,6 @@
 def call(){
-sh "echo TOKEN VALUE: ${VAULT_TOKEN}"
-sh "echo NAMESPACE: ${namespace}"
-sh "echo PATH: ${path}"
-
     sh """
-             curl -sk \
+            curl -sk \
             -H "X-Vault-Namespace: $namespace" \
             -H "X-Vault-Token: $VAULT_TOKEN" \
             -H "Content-Type: application/json" \
