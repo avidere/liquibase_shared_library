@@ -1,5 +1,5 @@
 def usernamePassword(){
-    maskPasswords(varMaskRegexes: [[value: master_pass, VAULT_TOKEN]]) {
+    
         sh """
             curl \
             -H "X-Vault-Token: ${VAULT_TOKEN}" \
@@ -12,5 +12,5 @@ def usernamePassword(){
         pass = credProps['password']
 
         return [user, pass]
-    }
+    
 }
