@@ -1,6 +1,6 @@
 def generateToken(String vaultNS) {
-    withCredentials([
-        usernamePassword(credentialsId: 'vaultcred', passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
+    withCredentials([usernamePassword(credentialsId: 'vaultcred', passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
+       maskPasswords(varMaskRegexes: [[value: master_pass, VAULT_TOKEN]]) {
         sh """
             curl -k \
             -H "X-Vault-Namespace: ${vaultNS}" \
@@ -12,6 +12,7 @@ def generateToken(String vaultNS) {
             ${VAULT_ADDR}/v1/auth/approle/login | jq -r .auth > token.json
         """
         }
+    }
     def authProps = readJSON file: 'token.json'
     def token = authProps['client_token']
     return token
