@@ -1,19 +1,20 @@
-def call(){
-    sh '''
-            curl -sk \
-            -H "X-Vault-Namespace: admin" \
+def mysql(){
+    sh """
+             curl -sk \
+            -H "X-Vault-Namespace: $namespace" \
             -H "X-Vault-Token: $VAULT_TOKEN" \
             -H "Content-Type: application/json" \
             --request POST \
             --data '{
                 "plugin_name": "mysql-database-plugin",
-                "connection_url": "{{username}}:{{password}}@tcp(demo-mysql-db.cr24o06285ta.ap-south-1.rds.amazonaws.com:3306)/",
-                "username": "admin",
-                "password": "8F8%?YbhSDp?uQOw",
+                "connection_url": "{{username}}:{{password}}@tcp(${GLOBAL_ENDPOINT}:${PORT})/",
+                "username": "${master_user}",
+                "password": "${master_pass}",
+                "allowed_roles":"${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}_liquibase_deploy_role, ${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}_liquibase_dare_role, ${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}_liquibase_dba_role",
                 "max_open_connections": 4,
                 "max_idle_connections": 0,
                 "max_connection_lifetime": "0s"
             }' \
-            $VAULT_ADDR/v1/database/config/503027034_654654373515_aurora_demo-mysql-db_admin
-'''
+            $VAULT_ADDR/v1/database/config/${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}
+"""
 }
