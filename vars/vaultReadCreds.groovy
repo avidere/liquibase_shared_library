@@ -5,7 +5,8 @@ def usernamePassword(){
         -H "X-Vault-Namespace: ${namespace}" \
         $VAULT_ADDR/v1/secret/data/rds/mysqldev | jq -r .data.data > credentials.json
     """
-    def credProps = readJSON file 'credentials.json'
+    def credProps = readJSON file: 'credentials.json'
+    
     user = credProps['username']
     pass = credProps['password']
 
