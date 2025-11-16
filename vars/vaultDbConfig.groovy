@@ -1,5 +1,5 @@
 def mysql(){
-    maskPasswords(varMaskRegexes: [[value: master_pass, VAULT_TOKEN]]) {
+    maskPasswords(varMaskRegexes: [[value: VAULT_TOKEN]]) {
     sh """
             curl -sk \
             -H "X-Vault-Namespace: $namespace" \
@@ -22,7 +22,7 @@ def mysql(){
 }
 
 def oracle(){
-    maskPasswords(varMaskRegexes: [[value: master_pass, VAULT_TOKEN]]) {
+    maskPasswords(varMaskRegexes: [[value: VAULT_TOKEN]]) {
         sh """
             curl -sk \
             -H "X-Vault-Namespace: $namespace" \
@@ -45,7 +45,7 @@ def oracle(){
 }
 
 def postgresql(){
-    maskPasswords(varMaskRegexes: [[value: master_pass, VAULT_TOKEN]]) {
+    maskPasswords(varMaskRegexes: [[value: VAULT_TOKEN]]) {
         sh """
             curl -sk \
             -H "X-Vault-Namespace: $namespace" \

@@ -1,6 +1,6 @@
 def generateToken(String vaultNS) {
     withCredentials([usernamePassword(credentialsId: 'vaultcred', passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
-       maskPasswords(varMaskRegexes: [[value: master_pass, VAULT_TOKEN]]) {
+       maskPasswords(varMaskRegexes: [[value: VAULT_TOKEN]]) {
         sh """
             curl -k \
             -H "X-Vault-Namespace: ${vaultNS}" \
