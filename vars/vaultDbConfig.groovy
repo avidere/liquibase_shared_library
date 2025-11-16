@@ -1,5 +1,5 @@
 def mysql(){
-    maskPasswords(varMaskRegexes: [[value: VAULT_TOKEN]]) {
+    
     sh """
             curl -sk \
             -H "X-Vault-Namespace: $namespace" \
@@ -18,11 +18,11 @@ def mysql(){
             }' \
             $VAULT_ADDR/v1/database/config/${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}
         """
-    }
+    
 }
 
 def oracle(){
-    maskPasswords(varMaskRegexes: [[value: VAULT_TOKEN]]) {
+    
         sh """
             curl -sk \
             -H "X-Vault-Namespace: $namespace" \
@@ -41,11 +41,11 @@ def oracle(){
             }' \
             $VAULT_ADDR/v1/database/config/${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}
         """
-    }
+    
 }
 
 def postgresql(){
-    maskPasswords(varMaskRegexes: [[value: VAULT_TOKEN]]) {
+    
         sh """
             curl -sk \
             -H "X-Vault-Namespace: $namespace" \
@@ -64,5 +64,5 @@ def postgresql(){
             }' \
             $VAULT_ADDR/v1/database/config/${APP_CIID}_${AWS_ACCOUNT}_${DB_TYPE}_${DB_IDENTIFIER}
         """
-    }
+    
 }
