@@ -16,21 +16,21 @@ def call() {
 
 
     // //liquibase related env variables
-    // if (params.CHANGE_LOG != null) {
-    //     env.changelog = params.CHANGE_LOG
-    // }
+    if (params.CHANGE_LOG != null) {
+        env.changelog = params.CHANGE_LOG
+    }
 
-    // if (params.ENVIRONMENT != null) {
-    //     env.envir = params.ENVIRONMENT
-    // } else if (params.ENVIRONMENT == null & groupId == 'common') {
-    //     env.envir = qa
-    // } else {
-    //     env.envir = groupId
-    // }
+    if (params.ENVIRONMENT != null) {
+        env.envir = params.ENVIRONMENT
+    } else if (params.ENVIRONMENT == null & groupId == 'common') {
+        env.envir = qa
+    } else {
+        env.envir = groupId
+    }
 
-    // env.liquibasePropFile = "config/" + envir + "/liquibase.properties"
+    env.liquibasePropFile = "config/" + envir + "/liquibase.properties"
 
-    // env.dbCredID = projKey + "-" + gitRepo + "-" + envir
+    env.dbCredID = projKey + "-" + gitRepo + "-" + envir
 
     //servicenow related ENV variable
     env.HttpProxy = props['HTTP_PROXY']
