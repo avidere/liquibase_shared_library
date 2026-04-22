@@ -30,7 +30,7 @@ def getAddr(String vaultNS) {
 }
 
 def generateToken(String vaultNS) {
-    getAddr(vaultNS)
+    getAddr("vaultNS")
     withCredentials([usernamePassword(credentialsId: env.cred, passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
        
         sh """
