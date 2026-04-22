@@ -46,7 +46,6 @@ def call() {
 
     //Nexus related ENV varaibles
     env.NexusCreds = creds['NexusCreds']
-    env.vaultcredId = creds['vaultcredId']
 
     env.nexusHost = props['NEXUS_PROD']
 
