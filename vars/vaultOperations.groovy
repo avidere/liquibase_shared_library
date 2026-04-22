@@ -1,4 +1,5 @@
 def getAddr(String vaultNS) {
+    echo "Determining Vault address for namespace: ${vaultNS}"
     if (vaultNS.contains('vaultdev') || vaultNS.contains('smdev')) {
         print 'DEV VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
@@ -30,7 +31,8 @@ def getAddr(String vaultNS) {
 }
 
 def generateToken(String vaultNS) {
-    getAddr("vaultNS")
+    echo "Generating token for vault namespace: ${vaultNS}"
+    getAddr(vaultNS)
     withCredentials([usernamePassword(credentialsId: env.cred, passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
        
         sh """
