@@ -28,8 +28,6 @@ def call() {
     } else {
         env.envir = groupId
     }
-    def parts = vaultNS.tokenize('/')
-    env.vaultcredId = "${parts[1]}_approle_${parts[0]}"
     env.liquibasePropFile = "config/" + envir + "/liquibase.properties"
 
     env.dbCredID = projKey + "-" + gitRepo + "-" + envir
