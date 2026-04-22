@@ -16,7 +16,7 @@ def getAddr(String vaultNS) {
     def parts = vaultNS.trim().replaceAll('/+$', '').tokenize('/')
 
     if (parts.size() >= 3) {
-        prefix = parts[1] + '_' + parts[2]
+        prefix = parts[2]              
     } else {
         prefix = parts[1]
     }
@@ -25,7 +25,7 @@ def getAddr(String vaultNS) {
         def envType = parts[0].contains(':') ? parts[0].split(':')[1] : parts[0]
         env.cred = prefix + '_token_' + envType
     } else {
-        env.cred = prefix + '_approle_' + parts[0]
+        env.cred = prefix + '_approle_' + parts[1]   
     }
 }
 
