@@ -8,7 +8,7 @@ def getAddr(String vaultNS) {
     } else if (vaultNS.contains('vaultuat') || vaultNS.contains('smuat')) {
         print 'UAT VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
-    } else if (vaultNS.contains(vaultprod) || vaultNS.contains(smprod)) {
+    } else if (vaultNS.contains('vaultprod') || vaultNS.contains('smprod')) {
         print 'PROD VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
     }
