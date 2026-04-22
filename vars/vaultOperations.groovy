@@ -31,7 +31,7 @@ def generateToken(String vaultNS) {
        
         sh """
             curl -k \
-            -H "X-Vault-Namespace: ${vaultNS}" \
+            -H "X-Vault-Namespace: admin/${vaultNS}" \
             --request POST \
             --data '{
                 "role_id": "${roleID}",
