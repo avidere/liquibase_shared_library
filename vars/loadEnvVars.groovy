@@ -55,20 +55,20 @@ def call() {
 
     env. nexusUrl = "${nexusHost}/repository/${Nexus_Liquibase_repo}"
 
-    // if (params.ARTIFACT_GROUP != null) {
-    // env.groupId = params.ARTIFACT_GROUP
+    if (params.ARTIFACT_GROUP != null) {
+    env.groupId = params.ARTIFACT_GROUP
 
-    // env.uploadUrl = "${nexusUrl}/${projKey}/${gitRepo}/${groupId}"
+    env.uploadUrl = "${nexusUrl}/${projKey}/${gitRepo}/${groupId}"
 
-    // env.groupName = "${projKey}/${gitRepo}/${groupId}"
+    env.groupName = "${projKey}/${gitRepo}/${groupId}"
 
-    // env.artifact = "${projKey}-${gitRepo}-${groupId}"
-    // }
-    // env.CurrentDate = "${new Date()}"
+    env.artifact = "${projKey}-${gitRepo}-${groupId}"
+    }
+    env.CurrentDate = "${new Date()}"
 
-    // env.successFile = 'Success_PipelineSummary.txt'
+    env.successFile = 'Success_PipelineSummary.txt'
 
-    // env.failFile = 'Failure_PipelineSummary.txt'
+    env.failFile = 'Failure_PipelineSummary.txt'
 
-    //env.BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + ' / ' + currentBuild.getBuildCauses()[0].userId
+    env.BUILD_TRIGGER_BY = currentBuild.getBuildCauses()[0].shortDescription + ' / ' + currentBuild.getBuildCauses()[0].userId
 }
