@@ -5,13 +5,14 @@ def call() {
     def credsFileContent = libraryResource 'properties/credentials.properties'
     def creds = readProperties text: credsFileContent
 
+    
     env.projKey = params.PROJECT_KEY
     env.gitRepo = params.REPOSITORY_NAME
     env.gitBranch = params.GIT_BRANCH
     env.baseUrl = props['baseUrl']
     env.gitUrl = "${env.baseUrl}/${env.projKey}/${env.gitRepo}.git"
     // env.gitCredentialsId = ['git-credentials']
-    env.vaultcred = creds['vaultcred']
+    
     env.VAULT_ADDR = props['VAULT_ADDR']
 
 
@@ -27,7 +28,8 @@ def call() {
     } else {
         env.envir = groupId
     }
-
+    def parts = vaultNS.tokenize('/')
+    env.vaultcredId = "${parts[1]}_approle_${parts[0]}"
     env.liquibasePropFile = "config/" + envir + "/liquibase.properties"
 
     env.dbCredID = projKey + "-" + gitRepo + "-" + envir
