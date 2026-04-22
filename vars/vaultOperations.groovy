@@ -1,5 +1,5 @@
 def generateToken(String vaultNS) {
-    withCredentials([usernamePassword(credentialsId: 'vaultcredId', passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
+    withCredentials([usernamePassword(credentialsId: '${vaultcredId}', passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
        
         sh """
             curl -k \
