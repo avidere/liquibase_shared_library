@@ -1,32 +1,32 @@
-def getAddr(String namespace) {
-    if (namespace.contains(vaultdev) || namespace.contains(smdev)) {
+def getAddr(String vaultNS) {
+    if (vaultNS.contains(vaultdev) || vaultNS.contains(smdev)) {
         print 'DEV VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
-    } else if (namespace.contains(vaultqa) || namespace.contains(smqa)) {
+    } else if (vaultNS.contains(vaultqa) || vaultNS.contains(smqa)) {
         print 'QA VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
-    } else if (namespace.contains(vaultuat) || namespace.contains(smuat)) {
+    } else if (vaultNS.contains(vaultuat) || vaultNS.contains(smuat)) {
         print 'UAT VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
-    } else if (namespace.contains(vaultprod) || namespace.contains(smprod)) {
+    } else if (vaultNS.contains(vaultprod) || vaultNS.contains(smprod)) {
         print 'PROD VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
     }
 
-    if (namespace.count("/") == 2) {
-        prefix = namespace.split('/')[1]+'_'+namespace.split('/')[2]
+    if (vaultNS.count("/") == 2) {
+        prefix = vaultNS.split('/')[1]+'_'+vaultNS.split('/')[2]
     } else {
-        prefix = namespace.split('/')[1]
+        prefix = vaultNS.split('/')[1]
     }
 
-    if (namespace.contains('token')){
-        env.cred = prefix+'_token_'+(namespace.split('/')[0]).split(':')[1]
+    if (vaultNS.contains('token')){
+        env.cred = prefix+'_token_'+(vaultNS.split('/')[0]).split(':')[1]
     } else {
-        env.cred = prefix+'_approle_'+(namespace.split('/')[0])
+        env.cred = prefix+'_approle_'+(vaultNS.split('/')[0])
     }
 }
 def generateToken(String vaultNS) {
-    getAddr(namespace)
+    getAddr(vaultNS)
     withCredentials([usernamePassword(credentialsId: 'cred', passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
        
         sh """
