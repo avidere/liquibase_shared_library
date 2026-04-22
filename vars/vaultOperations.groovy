@@ -13,25 +13,29 @@ def getAddr(String vaultNS) {
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
     }
 
-    if (vaultNS.count("/") == 2) {
-        prefix = vaultNS.split('/')[1]+'_'+vaultNS.split('/')[2]
+    def parts = vaultNS.trim().replaceAll('/+$', '').tokenize('/')
+
+    if (parts.size() >= 3) {
+        prefix = parts[1] + '_' + parts[2]
     } else {
-        prefix = vaultNS.split('/')[1]
+        prefix = parts[1]
     }
 
     if (vaultNS.contains('token')){
-        env.cred = prefix+'_token_'+(vaultNS.split('/')[0]).split(':')[1]
+        def envType = parts[0].contains(':') ? parts[0].split(':')[1] : parts[0]
+        env.cred = prefix + '_token_' + envType
     } else {
-        env.cred = prefix+'_approle_'+(vaultNS.split('/')[0])
+        env.cred = prefix + '_approle_' + parts[0]
     }
 }
+
 def generateToken(String vaultNS) {
     getAddr(vaultNS)
-    withCredentials([usernamePassword(credentialsId: 'cred', passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
+    withCredentials([usernamePassword(credentialsId: env.cred, passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
        
         sh """
             curl -k \
-            -H "X-Vault-Namespace: admin/${vaultNS}" \
+            -H "X-Vault-Namespace: ${vaultNS}" \
             --request POST \
             --data '{
                 "role_id": "${roleID}",
