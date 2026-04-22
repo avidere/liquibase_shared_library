@@ -1,20 +1,20 @@
-def getAddr(String vaultNS) {
-    echo "Determining Vault address for namespace: ${vaultNS}"
-    if (vaultNS.contains('vaultdev') || vaultNS.contains('smdev')) {
+def getAddr(String namespace) {
+    echo "Determining Vault address for namespace: ${namespace}"
+    if (namespace.contains('vaultdev') || namespace.contains('smdev')) {
         print 'DEV VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
-    } else if (vaultNS.contains('vaultqa') || vaultNS.contains('smqa')) {
+    } else if (namespace.contains('vaultqa') || namespace.contains('smqa')) {
         print 'QA VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
-    } else if (vaultNS.contains('vaultuat') || vaultNS.contains('smuat')) {
+    } else if (namespace.contains('vaultuat') || namespace.contains('smuat')) {
         print 'UAT VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
-    } else if (vaultNS.contains('vaultprod') || vaultNS.contains('smprod')) {
+    } else if (namespace.contains('vaultprod') || namespace.contains('smprod')) {
         print 'PROD VAULT'
         env.VAULT_ADDR = 'https://vault-cluster-public-vault-55c72033.42256dc0.z1.hashicorp.cloud:8200'
     }
 
-    def parts = vaultNS.trim().replaceAll('/+$', '').tokenize('/')
+    def parts = namespace.trim().replaceAll('/+$', '').tokenize('/')
 
     if (parts.size() >= 3) {
         prefix = parts[2]              
@@ -22,7 +22,7 @@ def getAddr(String vaultNS) {
         prefix = parts[1]
     }
 
-    if (vaultNS.contains('token')){
+    if (namespace.contains('token')){
         def envType = parts[0].contains(':') ? parts[0].split(':')[1] : parts[0]
         env.cred = prefix + '_token_' + envType
     } else {
@@ -30,14 +30,13 @@ def getAddr(String vaultNS) {
     }
 }
 
-def generateToken(String vaultNS) {
-    echo "Generating token for vault namespace: ${vaultNS}"
-    getAddr(vaultNS)
+def generateToken(String namespace) {
+    getAddr(namespace)
     withCredentials([usernamePassword(credentialsId: env.cred, passwordVariable: 'secretID', usernameVariable: 'roleID')]) {
        
         sh """
             curl -k \
-            -H "X-Vault-Namespace: ${vaultNS}" \
+            -H "X-Vault-Namespace: $namespace" \
             --request POST \
             --data '{
                 "role_id": "${roleID}",
